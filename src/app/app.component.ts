@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppointmentsComponent } from './patient/appointments/appointments.component';
+import { AppointmentsComponent } from './doctor/appointments/appointments.component'; 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, AppointmentsComponent],
