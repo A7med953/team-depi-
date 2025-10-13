@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-patient',
-  imports: [],
+  imports: [ RouterOutlet, RouterLink, RouterLinkActive, CommonModule ],
   templateUrl: './patient.component.html',
   styleUrl: './patient.component.css'
 })
