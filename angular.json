@@ -33,7 +33,7 @@
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "server": "src/main.server.ts",
-            "outputMode": "server",
+            
             "ssr": {
               "entry": "src/server.ts"
             }
@@ -100,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "78f32698-db1d-4a2e-8faa-a95a790db1c4"
   }
 }

@@ -13,11 +13,11 @@ export const routes: Routes = [
         component: PatientComponent,
         children: [
             { path: 'my-appointments', component: MyAppointmentsComponent },
-            { path: 'book-appointment', component: BookAppointmentComponent },
-            { path: 'medical-records', component: MedicalRecordsComponent },
-            { path: 'find-hospitals', component: FindHospitalsComponent },
-            { path: 'notifications', component: NotificationsComponent },
-            { path: 'my-profile', component: MyProfileComponent },
+            // { path: 'book-appointment', component: BookAppointmentComponent },
+            // { path: 'medical-records', component: MedicalRecordsComponent },
+            // { path: 'find-hospitals', component: FindHospitalsComponent },
+            // { path: 'notifications', component: NotificationsComponent },
+            // { path: 'my-profile', component: MyProfileComponent },
             { path: '', redirectTo: 'my-appointments', pathMatch: 'full' }
         ]
     }
