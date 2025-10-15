@@ -1,1 +1,124 @@
-<p>my-appointments works!</p>
+<section>
+    <div>
+        <h2>
+            My Appointments
+        </h2>
+        <p>
+            View and manage your healthcare appointments
+        </p>
+    </div>
+
+    <div class="upcoming">
+        <h3>
+            Upcoming Appointments
+
+        </h3>
+        <div *ngIf="appointments.length > 0" class="cards">
+            <article *ngFor="let appointment of appointments" class="card">
+                <div class="card-fist-row">
+                    <div class="left-group">
+                        <i class="fa fa-user-md"></i>
+                        <div class="name-date-time">
+                            <h4>
+                                {{ appointment.doctor }}
+                            </h4>
+                            <div class="date-time">
+                                <i class="fa fa-calendar"></i>
+                                <span>
+                                    {{ appointment.date }}
+                                </span>
+                                
+                                <i class="fa fa-clock-o"></i>
+                                <span>
+                                    {{ appointment.timeStart }} - {{ appointment.timeEnd }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="status">
+                        {{ appointment.status }}
+                    </span>
+                </div>
+                <div class="card-second-row">
+                    <div class="reason">
+                        <h4>
+                            Reason for visit
+                        </h4>
+                        <p>
+                            {{ appointment.reason }}
+                        </p>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-primary view">
+                            View details
+                        </button>
+                        <button class="btn btn-secondary cancel">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div *ngIf="appointments.length === 0" class="card">
+            <p>
+                You have no upcoming appointments.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="past">
+        <h3>
+            Past Appointments
+        </h3>
+        <div *ngIf="pastAppointments.length > 0" class="cards">
+            <article *ngFor="let appointment of pastAppointments" class="card">
+                <div class="card-fist-row">
+                    <div class="left-group">
+                        <i class="fa fa-user-md"></i>
+                        <div class="name-date-time">
+                            <h4>
+                                {{ appointment.doctor }}
+                            </h4>
+                            <div class="date-time">
+                                <i class="fa fa-calendar"></i>
+                                <span>
+                                    {{ appointment.date }}
+                                </span>
+                                <span>
+                                    {{ appointment.timeStart }} - {{ appointment.timeEnd }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="status">
+                        {{ appointment.status }}
+                    </span>
+                </div>
+                <div class="card-second-row">
+                    <div class="reason">
+                        <h4>
+                            Reason for visit
+                        </h4>
+                        <p>
+                            {{ appointment.reason }}
+                        </p>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-primary">
+                            View details
+                        </button>
+                        <button class="btn btn-secondary">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div *ngIf="pastAppointments.length === 0" class="card">
+            <p>
+                You have no past appointments.
+            </p>
+        </div>
+    </div>
+</section>
