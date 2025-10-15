@@ -1,0 +1,126 @@
+/* ---------- FEATURES  ---------- */
+    .features-section {
+        padding: 5rem 2rem;
+        background: #f9fafb;
+    }
+
+    .features-section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+    .features-section-header h2 {
+        font-size: 2.2rem;
+        color: #111;
+        margin-bottom: 1rem;
+    }
+    .features-section-header p {
+        color: #666;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .features-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .feature-card {
+        position: relative;
+        background: #fff;
+        border: 1px solid #e0f0f5;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        transition: transform 0.3s, box-shadow 0.3s;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .card-background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 1rem;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        z-index: -1;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card:hover .card-background-image {
+        opacity: 0.15;
+    }
+
+    .feature-card .card-header,
+    .feature-card p {
+        position: relative;
+        z-index: 2;
+    }
+
+    .card-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .card-icon-bg {
+        width: 60px;
+        height: 60px;
+        background-color: #f0f9fb;
+        border-radius: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin: 0 0 0.5rem 0;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .feature-card:hover .card-icon-bg {
+        background-color: rgba(0, 134, 161, 0.1);
+    }
+
+    .card-icon-bg i {
+        font-size: 1.5rem;
+        color: #0086a1;
+    }
+
+    .feature-card h3 {
+        font-size: 1.3rem;
+        color: #111;
+        margin: 0;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .feature-card p {
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+
+    /* ---------- RESPONSIVE: SERVICES SECTION ---------- */
+
+@media (max-width: 768px) and (min-width: 481px) {
+  .features-section { padding: 3.2rem 1.2rem; }
+  .features-container { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .features-section { padding: 3.2rem 1rem; }
+  .features-container { grid-template-columns: 1fr; gap: 1rem; }
+}
