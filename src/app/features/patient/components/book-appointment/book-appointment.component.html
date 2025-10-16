@@ -1,1 +1,108 @@
-<p>book-appointment works!</p>
+<section>
+    <header>
+        <h3>Book appointments</h3>
+        <p>Schedule a consultation with our healthcare professionals</p>
+    </header>
+
+    <div class="details">
+        <header>
+            <i class="fa fa-calendar"></i>
+            <h4>Appointment details</h4>
+        </header>
+
+        <div class="select-doctor">
+            <h5>Select doctor</h5>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="doctorDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ selectedDoctor || 'Choose a doctor' }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="doctorDropdown">
+                    <li *ngFor="let doctor of doctors"><a class="dropdown-item" (click)="selectDoctor(doctor.name + ' - ' + doctor.specialty)">{{ doctor.name }} - {{ doctor.specialty }}</a></li>
+                </ul>
+            </div>
+            <div *ngIf="errors['doctor']" class="error-message">{{ errors['doctor'] }}</div>
+        </div>
+
+        <div class="preferred-date">
+            <h5>Preferred date</h5>
+            <div class="form-group" style="width: 20%;">
+                <input type="date" class="form-control" id="appointmentDate" [(ngModel)]="appointmentDate" placeholder="Select date">
+            </div>
+            <div *ngIf="errors['date']" class="error-message">{{ errors['date'] }}</div>
+        </div>
+
+        <div class="preferred-time">
+            <h5>Preferred time</h5>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="timeDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ selectedTimeSlot || 'Choose time slot' }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="timeDropdown">
+                    <li><a class="dropdown-item" (click)="selectTimeSlot('09:00 AM')">09:00 AM</a></li>
+                    <li><a class="dropdown-item" (click)="selectTimeSlot('10:00 AM')">10:00 AM</a></li>
+                    <li><a class="dropdown-item" (click)="selectTimeSlot('11:00 AM')">11:00 AM</a></li>
+                    <li><a class="dropdown-item" (click)="selectTimeSlot('12:00 PM')">12:00 PM</a></li>
+                    <li><a class="dropdown-item" (click)="selectTimeSlot('01:00 PM')">01:00 PM</a></li>
+                    <li><a class="dropdown-item" (click)="selectTimeSlot('02:00 PM')">02:00 PM</a></li>
+                    <li><a class="dropdown-item" (click)="selectTimeSlot('03:00 PM')">03:00 PM</a></li>
+                    <li><a class="dropdown-item" (click)="selectTimeSlot('04:00 PM')">04:00 PM</a></li>
+
+                </ul>
+            </div>
+            <div *ngIf="errors['time']" class="error-message">{{ errors['time'] }}</div>
+        </div>
+        <div class="symptoms">
+            <h5>Describe your symptoms</h5>
+            <div class="form-group">
+                <textarea class="form-control" rows="5" [(ngModel)]="symptoms" placeholder="Please describe your symptoms"></textarea>
+            </div>
+            <div *ngIf="errors['symptoms']" class="error-message">{{ errors['symptoms'] }}</div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" (click)="submitAppointment()">
+            Submit Appointment
+        </button>
+    </div>
+
+    <div class="doctors">
+        <header>
+            <i class="fa fa-user-md"></i>
+            <h4>Availabe doctors</h4>
+        </header>
+
+        <div class="doctor" *ngFor="let doctor of doctors">
+            <i class="fa fa-user-circle"></i>
+            <div class="doctor-detials">
+                <h4>{{doctor.name}}</h4>
+                <h5>{{doctor.specialty}}</h5>
+                <p class="experience">
+                    {{doctor.yoe}} years experience
+                </p>
+                <p class="consulation">
+                    {{doctor.fees}}$ consulation fees
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="guidelines">
+        <header>
+            <i class="fa fa-clock"></i>
+            <h4>Booking guidelines</h4>
+        </header>
+
+        <ul>
+            <li>
+                Appointments can be booked up to 30 days in advance
+            </li>
+            <li>
+                Please arrive 15 minutes before your scheduled time
+            </li>
+            <li>
+                Bring a valid ID and insurance card
+            </li>
+        </ul>
+    </div>
+</section>

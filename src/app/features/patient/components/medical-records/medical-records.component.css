@@ -1,0 +1,232 @@
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    margin-bottom: 1rem;
+}
+
+header h2 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0 0 0.5rem 0;
+}
+
+header p {
+    color: #666;
+    margin: 0;
+}
+
+.record-section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.section-header i {
+    font-size: 1.5rem;
+    color: #28a745;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.section-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.records-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.record-card {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+}
+
+.record-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #28a745;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.card-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.card-body p {
+    margin: 0.5rem 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.card-body strong {
+    color: #333;
+}
+
+.badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge.active {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge.chronic {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.badge.severe {
+    background-color: #dc3545;
+    color: white;
+}
+
+.badge.moderate {
+    background-color: #ff9800;
+    color: white;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    section {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    header h2 {
+        font-size: 1.5rem;
+    }
+
+    .record-section {
+        padding: 1.5rem;
+    }
+
+    .section-header {
+        margin-bottom: 1rem;
+    }
+
+    .section-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .section-header i {
+        font-size: 1.3rem;
+    }
+
+    .records-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .record-card {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 0.5rem;
+        gap: 1rem;
+    }
+
+    header h2 {
+        font-size: 1.25rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    .record-section {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .section-header {
+        gap: 0.75rem;
+    }
+
+    .section-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .section-header i {
+        font-size: 1.2rem;
+    }
+
+    .record-card {
+        padding: 1rem;
+    }
+
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .card-header h4 {
+        font-size: 1rem;
+    }
+
+    .card-body p {
+        font-size: 0.85rem;
+    }
+
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .records-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    .records-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+}

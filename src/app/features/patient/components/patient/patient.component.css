@@ -104,3 +104,161 @@ main {
     padding: 20px;
     overflow-y: auto;
 }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    aside {
+        width: 25%;
+    }
+    
+    main {
+        width: 75%;
+        padding: 15px;
+    }
+    
+    aside h2 {
+        font-size: 1.3rem;
+    }
+    
+    aside ul li a {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        flex-direction: column;
+    }
+    
+    aside {
+        width: 100%;
+        min-height: auto;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .profile {
+        padding: 15px;
+    }
+    
+    aside h2 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    
+    aside p {
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+    
+    aside ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        padding: 10px;
+    }
+    
+    aside ul li {
+        margin-bottom: 0;
+        flex: 1 1 calc(50% - 5px);
+        min-width: 150px;
+    }
+    
+    aside ul li a {
+        text-align: center;
+        font-size: 0.85rem;
+        padding: 10px 5px;
+    }
+    
+    aside ul li a i {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+    }
+    
+    .sign-out {
+        height: auto;
+        padding: 15px;
+    }
+    
+    aside button {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    main {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile {
+        padding: 10px;
+        text-align: center;
+    }
+    
+    aside h2 {
+        font-size: 1.1rem;
+    }
+    
+    aside p {
+        font-size: 0.85rem;
+    }
+    
+    aside ul {
+        padding: 5px;
+    }
+    
+    aside ul li {
+        flex: 1 1 100%;
+    }
+    
+    aside ul li a {
+        font-size: 0.9rem;
+        padding: 12px 10px;
+        text-align: left;
+    }
+    
+    aside ul li a i {
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 0;
+        font-size: 1rem;
+    }
+    
+    .sign-out {
+        padding: 10px;
+    }
+    
+    aside button {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+    
+    main {
+        padding: 10px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+    aside {
+        width: 22%;
+    }
+    
+    main {
+        width: 78%;
+    }
+}
+
+@media (min-width: 1441px) {
+    aside {
+        width: 18%;
+        max-width: 300px;
+    }
+    
+    main {
+        width: 82%;
+    }
+}
