@@ -1,0 +1,52 @@
+<section>
+    <header>
+        <a routerLink="/patient/my-appointments"> 
+            <i class="fa fa-arrow-left"></i>
+            Back to appointments
+        </a>
+        <h2>
+            Appointment Details
+        </h2>
+    </header>
+    <article *ngIf="appointment != null" class="card">
+                <div class="card-fist-row">
+                    <div class="left-group">
+                        <i class="fa fa-user-md"></i>
+                        <div class="name-date-time">
+                            <h4>
+                                {{ appointment.doctor }}
+                            </h4>
+                            <div class="date-time">
+                                <i class="fa fa-calendar"></i>
+                                <span>
+                                    {{ appointment.date }}
+                                </span>
+                                
+                                <i class="fa fa-clock-o"></i>
+                                <span>
+                                    {{ appointment.timeStart }} - {{ appointment.timeEnd }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="status">
+                        {{ appointment.status }}
+                    </span>
+                </div>
+                <div class="card-second-row">
+                    <div class="reason">
+                        <h4>
+                            Reason for visit
+                        </h4>
+                        <p>
+                            {{ appointment.reason }}
+                        </p>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary cancel">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </article>
+</section>

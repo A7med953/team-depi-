@@ -9,6 +9,7 @@ import { NotificationsComponent } from './features/patient/components/notificati
 import { LandingPageComponent } from './features/landing-page/landing-page.component';
 import { LoginComponent } from './core/Auth/components/login/login.component';
 import { RegisterComponent } from './core/Auth/components/register/register.component';
+import { AppointmentComponent } from './features/patient/components/appointment/appointment.component';
 
 
 
@@ -28,6 +29,7 @@ export const routes: Routes = [
             { path: 'find-hospitals', component: FindHospitalsComponent },
             { path: 'notifications', component: NotificationsComponent },
             { path: 'my-profile', component: MyProfileComponent },
+            { path: 'appointment/:id', component: AppointmentComponent},
             { path: '', redirectTo: 'my-appointments', pathMatch: 'full' },
           
         ]

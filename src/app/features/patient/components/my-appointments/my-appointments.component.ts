@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { PatientServicesService } from '../../services/patient-services.service';
+import { Appointment } from '../../services/patient-services.service';
 
 @Component({
   selector: 'app-my-appointments',
@@ -10,31 +13,24 @@ import { CommonModule } from '@angular/common';
 
 export class MyAppointmentsComponent implements OnInit {
 
-  appointments: {
-    date: string;
-    timeStart: string;
-    timeEnd: string;
-    doctor: string;
-    status: string;
-    reason: string;
-  }[] = [
-    { date: '2024-07-01', timeStart: '10:00 AM', timeEnd: '10:30 AM', doctor: 'Dr. Smith', status: 'Confirmed', reason: "Chest pain" },
-    { date: '2024-07-03', timeStart: '10:00 AM', timeEnd: '10:30 AM', doctor: 'Dr. Mark', status: 'Confirmed', reason: "Chest pain" },
-  ];
+  constructor(
+    private patientService: PatientServicesService,
+    private router: Router
+  ) {}
 
-  pastAppointments: {
-    date: string;
-    timeStart: string;
-    timeEnd: string;
-    doctor: string;
-    status: string;
-    reason: string;
-  }[]  = [
-];
+  appointments: Appointment[] = [];
+
+  pastAppointments: Appointment[] = [];
 
   ngOnInit() {
-    console.log('Component initialized');
-    console.log('Appointments:', this.appointments);
-    console.log('Past Appointments:', this.pastAppointments);
+    const fetchedAppointments = this.patientService.getAppointments();
+    const currentDate = new Date();
+
+    this.appointments = fetchedAppointments.filter(appointment => new Date(appointment.date) >= currentDate);
+    this.pastAppointments = fetchedAppointments.filter(appointment => new Date(appointment.date) < currentDate);
+  }
+
+  viewDetails(appointmentId: number) {
+    this.router.navigate(['/patient/appointment', appointmentId]);
   }
 }
