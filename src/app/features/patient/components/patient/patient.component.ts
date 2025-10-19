@@ -9,5 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './patient.component.css'
 })
 export class PatientComponent {
-
+  toggleMenu(): void {
+    const menu = document.querySelector('.menu');
+    if (menu) {
+      menu.classList.toggle('visible');
+    }
+  }
 }
