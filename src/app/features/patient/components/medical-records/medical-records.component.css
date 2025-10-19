@@ -13,21 +13,21 @@ header {
 
 header h2 {
     font-size: 2rem;
-    color: #333;
+    color: var(--color-text-main);
     margin: 0 0 0.5rem 0;
 }
 
 header p {
-    color: #666;
+    color: var(--color-text-muted);
     margin: 0;
 }
 
 .record-section {
-    background-color: #ffffff;
+    background-color: var(--color-bg-card);
     border-radius: 12px;
     padding: 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e0e0e0;
+    box-shadow: var(--shadow-medium);
+    border: 1px solid var(--color-border-card);
 }
 
 .section-header {
@@ -36,12 +36,12 @@ header p {
     gap: 1rem;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid var(--color-bg-section);
 }
 
 .section-header i {
     font-size: 1.5rem;
-    color: #28a745;
+    color: var(--color-primary);
     padding: 0;
     border: none;
     background-color: transparent;
@@ -50,7 +50,7 @@ header p {
 .section-header h3 {
     margin: 0;
     font-size: 1.4rem;
-    color: #333;
+    color: var(--color-text-main);
 }
 
 .records-grid {
@@ -60,8 +60,8 @@ header p {
 }
 
 .record-card {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
+    background-color: var(--color-bg-section);
+    border: 1px solid var(--color-border-card);
     border-radius: 8px;
     padding: 1.5rem;
     transition: all 0.3s;
@@ -69,8 +69,8 @@ header p {
 
 .record-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-color: #28a745;
+    box-shadow: var(--shadow-medium);
+    border-color: var(--color-primary);
 }
 
 .card-header {
@@ -79,23 +79,23 @@ header p {
     align-items: center;
     margin-bottom: 1rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid var(--color-border-light);
 }
 
 .card-header h4 {
     margin: 0;
     font-size: 1.1rem;
-    color: #333;
+    color: var(--color-text-main);
 }
 
 .card-body p {
     margin: 0.5rem 0;
-    color: #555;
+    color: var(--color-text-secondary);
     font-size: 0.9rem;
 }
 
 .card-body strong {
-    color: #333;
+    color: var(--color-text-main);
 }
 
 .badge {
@@ -108,23 +108,23 @@ header p {
 }
 
 .badge.active {
-    background-color: #28a745;
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-text-white);
 }
 
 .badge.chronic {
     background-color: #ffc107;
-    color: #333;
+    color: var(--color-text-main);
 }
 
 .badge.severe {
     background-color: #dc3545;
-    color: white;
+    color: var(--color-text-white);
 }
 
 .badge.moderate {
     background-color: #ff9800;
-    color: white;
+    color: var(--color-text-white);
 }
 
 /* Responsive Styles */

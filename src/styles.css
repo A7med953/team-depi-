@@ -1,0 +1,33 @@
+:root {
+    /* ---------- PRIMARY COLORS ---------- */
+    --color-primary: #0086a1;
+    --color-primary-dark: #006e83;
+    --color-primary-light: #00b4cc;
+    
+    /* ---------- BACKGROUND COLORS ---------- */
+    --color-bg-light: #f9fafb;
+    --color-bg-section: #f0f9fb;
+    --color-bg-card: #fff;
+    --color-bg-icon: #f0f9fb;
+    --color-bg-icon-alt: #e0f7fa;
+    --color-overlay: rgba(0, 0, 0, 0.55);
+    
+    /* ---------- TEXT COLORS ---------- */
+    --color-text-main: #333333;
+    --color-text-secondary: #555;
+    --color-text-muted: #666;
+    --color-text-light: #eee;
+    --color-text-white: #fff;
+    
+    /* ---------- BORDERS & SHADOWS ---------- */
+    --color-border-light: #e0e0e0;
+    --color-border-card: #e0f0f5;
+    --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.04);
+    --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.1);
+    
+    /* ---------- FOOTER COLORS ---------- */
+    --color-footer-bg: #0d2f36;
+    --color-footer-text: #fff;
+    --color-footer-muted: #a6adb1;
+}
