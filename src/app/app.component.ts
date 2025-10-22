@@ -4,7 +4,9 @@ import { LoginComponent } from "./core/Auth/components/login/login.component";
 // import { LoginComponent } from "./Auth/login/login.component"; 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginComponent],
+  imports: [RouterOutlet, 
+    // LoginComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
