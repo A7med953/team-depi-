@@ -1,85 +1,50 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  AbstractControl,
-  ReactiveFormsModule,
-  FormBuilder,
-} from '@angular/forms';
-
-import { AuthServiceService } from '../../services/auth-service.service';
-import { Router } from '@angular/router';
-import { ValidationMessagesComponent } from '../../../../shared/components/validation-messages/validation-messages.component';
-import { response } from 'express';
+import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, ValidationMessagesComponent],
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  resMsg: string = '';
-  isLoading = true;
-  authForm!: FormGroup;
-  isShowPassword: boolean = true;
-  private readonly authService = inject(AuthServiceService);
-  private readonly router = inject(Router);
-  private readonly formBuilder = inject(FormBuilder);
+  private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
-  formInit() {
-    this.authForm = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email]],
-      password: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern(
-            /^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[#?!@$%^&*-]).{8,}$/
-          ),
-        ],
-      ],
+  public form!: FormGroup;
+  public error = '';
+  public returnUrl = '/';
+
+  constructor() {
+    this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(3)]],
     });
+
+    const q = this.route.snapshot.queryParamMap.get('returnUrl');
+    if (q) this.returnUrl = q;
   }
 
-  submitForm() {
-    this.isLoading = false;
-    if (this.authForm.valid || !this.isLoading) {
-      console.log(this.authForm.value);
+  submit() {
+    this.error = '';
+    if (this.form.invalid) return;
+
+    const { email, password } = this.form.value;
+    const u = this.auth.login(email!, password!);
+
+    if (!u) {
+      this.error = 'البريد الإلكتروني أو كلمة المرور غير صحيحة (مصرح بثلاثة ايميلات فقط).';
+      return;
     }
 
-    this.authService.login(this.authForm.value).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.isLoading = true;
-        if (response.message == 'success') {
-          this.authService.saveToken(response.token);
-          this.router.navigate(['/home']);
-        }
-           this.authService.getUserProfile().subscribe(profile => {
-  this.authService.setUser({
-    name: profile.name,
-    email: profile.email
-  });
-});
-
-          localStorage.setItem('user', JSON.stringify(response.user));
-      },
-      error: ({ error }) => {
-        console.log(error);
-        this.resMsg = error.message;
-        this.isLoading = true;
-      },
-    });
+    if (u.role === 'doctor') this.router.navigate(['/doctor']);
+    else if (u.role === 'pharmacy') this.router.navigate(['/pharmacy']);
+    else if (u.role === 'patient') this.router.navigate(['/patient']);
+    else this.router.navigate([this.returnUrl]);
   }
-
-  showPassword() {
-    this.isShowPassword = !this.isShowPassword;
-  }
-
-  ngOnInit(): void {
-    this.formInit();
-  }
-
 }
