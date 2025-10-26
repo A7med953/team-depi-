@@ -1,1 +1,95 @@
-<p>prescriptions works!</p>
+<div class="container">
+  <h1>Prescriptions</h1>
+  <p class="pending-count">
+    {{ pendingCount }} pending prescription(s) to review
+  </p>
+
+  <div class="filter-bar">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input
+        type="text"
+        placeholder="Search by patient, medication, or doctor..."
+        (input)="handleSearch($event)"
+      />
+    </div>
+
+    <div class="filter-buttons">
+      <button
+        class="filter-btn all"
+        [class.active]="currentFilterStatus === 'all'"
+        (click)="handleFilterChange('all')"
+      >
+        All
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="currentFilterStatus === 'pending'"
+        (click)="handleFilterChange('pending')"
+      >
+        Pending
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="currentFilterStatus === 'dispensed'"
+        (click)="handleFilterChange('dispensed')"
+      >
+        Dispensed
+      </button>
+      <button
+        class="filter-btn"
+        [class.active]="currentFilterStatus === 'cancelled'"
+        (click)="handleFilterChange('cancelled')"
+      >
+        Cancelled
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="filteredPrescriptions.length === 0" class="no-prescriptions">
+    No prescriptions found for this filter or search criteria.
+  </div>
+
+  <div *ngFor="let p of filteredPrescriptions" class="prescription-card">
+    <div class="card-header">
+      <div class="medicine-name">
+        <i class="fa-solid fa-pills"></i> {{ p.medication }}
+      </div>
+      <span class="status-badge" [ngClass]="p.status">{{ p.status }}</span>
+    </div>
+
+    <div class="patient-info">
+      <span><i class="fa-solid fa-user"></i> {{ p.patientName }}</span>
+      <span><i class="fa-solid fa-calendar-days"></i> {{ p.date }}</span>
+    </div>
+
+    <div class="prescription-details">
+      <p><strong>Dosage:</strong> {{ p.dosage }}</p>
+      <p><strong>Frequency:</strong> {{ p.frequency }}</p>
+      <p><strong>Duration:</strong> {{ p.duration }}</p>
+      <p><strong>Quantity:</strong> {{ p.quantity }}</p>
+      <p><strong>Prescribed by:</strong> {{ p.prescribedBy }}</p>
+    </div>
+
+    <p class="instructions">
+      <strong>Instructions:</strong> {{ p.instructions }}
+    </p>
+
+    <div class="card-actions">
+      <button
+        class="action-btn dispense"
+        [disabled]="p.status !== 'pending'"
+        (click)="handleAction(p.id, 'dispense')"
+      >
+        <i class="fa-solid fa-circle-check"></i> Dispense
+      </button>
+      <button
+        class="action-btn cancel"
+        [disabled]="p.status !== 'pending'"
+        (click)="handleAction(p.id, 'cancel')"
+      >
+        <i class="fa-solid fa-circle-xmark"></i> Cancel
+      </button>
+    </div>
+  </div>
+</div>

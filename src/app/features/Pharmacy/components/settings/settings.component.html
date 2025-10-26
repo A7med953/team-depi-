@@ -1,1 +1,55 @@
-<p>settings works!</p>
+<div class="profile-container">
+  <div class="profile-content">
+    <div class="user-info">
+      <div
+        class="profile-avatar"
+        [style.backgroundImage]="'url(' + user?.profile_image + ')'"
+      ></div>
+      <h3>{{ user?.name }}</h3>
+      <p>{{ user?.email }}</p>
+    </div>
+
+    <section id="info" class="profile-section">
+      <h2><i class="fas fa-id-card"></i> Personal Information</h2>
+
+      <div class="data-item">
+        <strong>Full Name:</strong> <span>{{ user?.name }}</span>
+      </div>
+      <div class="data-item">
+        <strong>Email:</strong> <span>{{ user?.email }}</span>
+      </div>
+      <div class="data-item">
+        <strong>Phone Number:</strong> <span>{{ user?.phone }}</span>
+      </div>
+      <div class="data-item">
+        <strong>Date of Birth:</strong> <span>{{ user?.date_of_birth }}</span>
+      </div>
+      <div class="data-item">
+        <strong>Medical Notes:</strong> <span>{{ user?.medical_notes }}</span>
+      </div>
+
+      <button class="edit-btn">
+        <i class="fas fa-edit"></i> Edit Profile
+      </button>
+    </section>
+
+    <div class="section-separator"></div>
+
+    <section id="settings" class="profile-section">
+      <h2><i class="fas fa-cog"></i> Account Settings</h2>
+
+      <div class="settings-option">
+        <p>Change Password</p>
+        <button class="settings-btn">Change</button>
+      </div>
+      <div class="settings-option">
+        <p>Enable Notifications</p>
+        <i class="fas fa-toggle-on toggle-icon"></i>
+      </div>
+
+      <button class="logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </button>
+    </section>
+  </div>
+</div>

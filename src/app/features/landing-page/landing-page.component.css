@@ -722,7 +722,7 @@ color: #fff;
 
 /* Laptop */
 @media (max-width: 1024px) and (min-width: 769px) {
-  .hamburger { display: flex; }
+  .hamburger { display: none; }
   .navbar ul { display: flex; gap: 1rem; }
   .sidebar { width: 320px; right: -320px; }
   .sidebar.active { right: 0; }
