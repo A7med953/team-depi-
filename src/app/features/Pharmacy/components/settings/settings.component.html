@@ -3,29 +3,29 @@
     <div class="user-info">
       <div
         class="profile-avatar"
-        [style.backgroundImage]="'url(' + user?.profile_image + ')'"
+        [style.backgroundImage]="'url(' + user.profile_image + ')'"
       ></div>
-      <h3>{{ user?.name }}</h3>
-      <p>{{ user?.email }}</p>
+      <h3>{{ user.name }}</h3>
+      <p>{{ user.email }}</p>
     </div>
 
     <section id="info" class="profile-section">
       <h2><i class="fas fa-id-card"></i> Personal Information</h2>
 
       <div class="data-item">
-        <strong>Full Name:</strong> <span>{{ user?.name }}</span>
+        <strong>Full Name:</strong> <span>{{ user.name }}</span>
       </div>
       <div class="data-item">
-        <strong>Email:</strong> <span>{{ user?.email }}</span>
+        <strong>Email:</strong> <span>{{ user.email }}</span>
       </div>
       <div class="data-item">
-        <strong>Phone Number:</strong> <span>{{ user?.phone }}</span>
+        <strong>Phone Number:</strong> <span>{{ user.phone }}</span>
       </div>
       <div class="data-item">
-        <strong>Date of Birth:</strong> <span>{{ user?.date_of_birth }}</span>
+        <strong>Date of Birth:</strong> <span>{{ user.date_of_birth }}</span>
       </div>
       <div class="data-item">
-        <strong>Medical Notes:</strong> <span>{{ user?.medical_notes }}</span>
+        <strong>Medical Notes:</strong> <span>{{ user.medical_notes }}</span>
       </div>
 
       <button class="edit-btn">

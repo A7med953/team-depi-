@@ -16,7 +16,11 @@ import { PharmacyComponent } from "./features/Pharmacy/components/pharmacy/pharm
 import { PrescriptionsComponent } from "./features/Pharmacy/components/prescriptions/prescriptions.component";
 import { ReportsComponent } from "./features/Pharmacy/components/reports/reports.component";
 import { SettingsComponent } from "./features/Pharmacy/components/settings/settings.component";
-import { AppointmentsComponent } from "./features/doctor/components/appointments/appointments.component";
+import { DoctorComponent } from "./features/doctor/components/doctor/doctor.component";
+import path from "path";
+import { PatientsComponent } from "./features/doctor/components/patients/patients.component";
+import { MedicalRecordComponent } from "./features/doctor/components/medical-record/medical-record.component";
+import { DocMyappointmentComponent } from "./features/doctor/components/doc-myappointment/doc-myappointment.component";
 
 export const routes: Routes = [
 
@@ -30,7 +34,15 @@ export const routes: Routes = [
     component: LoginComponent,
   },
 
-  {path:'doctor',component:AppointmentsComponent},
+  {path:'doctor',component:DoctorComponent,
+    children:[
+      {path:'Appointments',component:DocMyappointmentComponent},
+      {path:'Medical-Records',component:MedicalRecordComponent},
+      {path:'Patients',component:PatientsComponent},
+      {path:'My-Profile',component:MyProfileComponent},
+      {path:'',redirectTo:'Appointments', pathMatch:'full'}
+    ]
+  },
   
   {
     path: 'patient',

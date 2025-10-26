@@ -1,0 +1,110 @@
+<div class="dashboard-container">
+  <aside class="sidebar" [ngClass]="{ 'mobile-open': isMenuOpen }">
+    <div class="menu-toggle" (click)="toggleMenu()">
+      <span>Mike Wilson - City Pharmacy</span>
+      <span class="menu-icon"><i class="fas fa-bars"></i></span>
+    </div>
+
+    <div class="user-info">
+      <p class="user-name">Mike Wilson</p>
+      <p class="pharmacy-name">City Pharmacy</p>
+    </div>
+
+    <nav class="navigation">
+      <a class="nav-item" routerLink="Appointments" routerLinkActive="active">
+        <span class="icon"><i class="fa-solid fa-calendar-days"></i></span>
+        <span class="text">Appointments</span>
+      </a>
+
+      <a
+        class="nav-item"
+        routerLink="Medical-Records"
+        routerLinkActive="active"
+      >
+        <span class="icon"><i class="fa-solid fa-file-lines"></i></span>
+        <span class="text">Medical Records</span>
+      </a>
+
+      <a class="nav-item" routerLink="Patients" routerLinkActive="active">
+        <span class="icon"><i class="fa-solid fa-user"></i></span>
+        <span class="text">Patients</span>
+      </a>
+
+      <a class="nav-item" routerLink="My-Profile" routerLinkActive="active">
+        <span class="icon"><i class="fa-solid fa-user-doctor"></i></span>
+        <span class="text"> Profile</span>
+      </a>
+
+      <div class="sign-out-mobile-container">
+        <a href="#" class="sign-out-btn-mobile">
+          <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+          <span class="text">Sign Out</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="sign-out-desktop-container">
+      <a href="#" class="sign-out-btn">
+        <span class="icon"><i class="fa-solid fa-calendar-days me-2"></i></span>
+        Sign Out
+      </a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
+
+<!-- <div class="dashboard-container d-flex flex-column flex-md-row min-vh-100">
+
+<aside class="sidebar bg-card shadow-sm p-0 d-flex flex-column " >
+  <div class="menu-toggle d-flex justify-content-between align-items-center p-3 d-md-none" 
+       data-bs-toggle="collapse" data-bs-target="#sidebarNav">
+    <span>Dr. Smith - Cardiology Department</span>
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="user-info px-3 pb-3 border-bottom d-none d-md-block">
+    <p class="user-name fw-bold mb-1">Dr. Smith</p>
+    <p class="pharmacy-name text-secondary mb-0">Cardiology Department</p>
+  </div>
+
+  <nav id="sidebarNav" class="navigation collapse d-md-flex flex-column pt-5">
+    <a class="nav-item d-flex align-items-center px-3 py-2 text-decoration-none text-body fs-5 " routerLink="Appointments" routerLinkActive="active">
+      <i class="fa-solid fa-calendar-days me-2"></i> Appointments
+    </a>
+    <a class="nav-item d-flex align-items-center px-3 py-2 text-decoration-none text-body fs-5" routerLink="Medical-Records" routerLinkActive="active">
+      <i class="fa-solid fa-file-lines me-2"></i> Medical Records
+    </a>
+    <a class="nav-item d-flex align-items-center px-3 py-2 text-decoration-none text-body fs-5" routerLink="Patients" routerLinkActive="active">
+      <i class="fa-solid fa-user me-2"></i> Patients
+    </a>
+    <a class="nav-item d-flex align-items-center px-3 py-2 text-decoration-none text-body fs-5" routerLink="My-Profile" routerLinkActive="active">
+      <i class="fa-solid fa-user-doctor me-2"></i> My Profile
+    </a>
+
+    <div class="sign-out-mobile-container border-top mt-2 d-md-none">
+      <a href="#" class="sign-out-btn-mobile btn btn-outline-secondary w-100 mt-2">
+        <i class="fas fa-sign-out-alt me-2"></i> Sign Out
+      </a>
+    </div>
+  </nav>
+
+  <div class="sign-out-desktop-container border-top p-3 d-none d-md-block">
+    <a href="#" class="sign-out-btn btn btn-outline-secondary w-100">
+      <i class="fas fa-sign-out-alt me-2"></i> Sign Out
+    </a>
+  </div>
+</aside>
+
+
+
+  <main class="main-content flex-grow-1 bg-light">
+    <div class="content-area p-4 p-md-5">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div> -->
