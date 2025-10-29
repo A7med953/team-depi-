@@ -1,49 +1,9 @@
-<!-- NAVBAR -->
-  <header>
-    <div class="navbar">
-      <div class="logo"><i class="fas fa-heart-pulse"></i> HealthCarePlus</div>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#features">Services</a></li>
-      </ul>
-      <div class="navbar-buttons">
-        <a routerLink="/login" class="sign-in-btn">Sign In</a>
-        <a href="#" class="btn-primary" style="color: #fff;">Get Started</a>
-      </div>
-      <div class="hamburger" aria-label="Open menu" role="button" tabindex="0">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </header>
-
-  <!-- SIDEBAR -->
-  <div class="sidebar" aria-hidden="true">
-    <div class="sidebar-header">
-      <div class="sidebar-logo"><i class="fas fa-heart-pulse"></i> HealthCarePlus</div>
-      <button class="close-sidebar" aria-label="Close menu"><i class="fas fa-times"></i></button>
-    </div>
-    <nav class="sidebar-nav">
-      <ul>
-        <li><a href="#home" onclick="closeSidebar()">Home</a></li>
-        <li><a href="#about" onclick="closeSidebar()">About</a></li>
-        <li><a href="#features" onclick="closeSidebar()">Services</a></li>
-      </ul>
-    </nav>
-    <div class="sidebar-buttons">
-      <a href="#" class="sign-in-btn">Sign In</a>
-      <a href="#" class="btn">Get Started</a>
-    </div>
-  </div>
-  <div class="overlay" onclick="closeSidebar()"></div>
-
+<app-navbar></app-navbar>
   <!-- HERO -->
   <section class="hero" id="home">
     <div class="hero-slide active" style="background-image:url('/Images/akram-huseyn-brbF5FSnSgI-unsplash.jpg');"></div>
     <div class="hero-slide" style="background-image:url('/Images/arseny-togulev-DE6rYp1nAho-unsplash.jpg');"></div>
-    <div class="hero-slide" style="background-image:url('/public/Images/DeWatermark.ai_1760229360557.jpeg');"></div>
+    <div class="hero-slide" style="background-image:url('/Images/DeWatermark.ai_1760229360557.jpeg');"></div>
 
     <div class="hero-content">
       <h1>Transform Healthcare with <span>Intelligent Management</span></h1>

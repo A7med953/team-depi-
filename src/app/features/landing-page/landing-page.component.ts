@@ -1,11 +1,12 @@
 import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from "@angular/router";
+import { NavbarComponent } from "../../shared/components/navbar/navbar.component";
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, NavbarComponent],
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css']
 })
@@ -31,39 +32,7 @@ export class LandingPageComponent implements AfterViewInit {
         slides[current].classList.add('active');
       }, 3000);
     }
-
-    // ---------- SIDEBAR FUNCTIONALITY ----------
-    const hamburger = document.querySelector('.hamburger') as HTMLElement;
-    const sidebar = document.querySelector('.sidebar') as HTMLElement;
-    const closeSidebarBtn = document.querySelector('.close-sidebar') as HTMLElement;
-    const overlay = document.querySelector('.overlay') as HTMLElement;
-
-    const openSidebar = () => {
-      sidebar?.classList.add('active');
-      overlay?.classList.add('active');
-      sidebar?.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    };
-
-    const closeSidebar = () => {
-      sidebar?.classList.remove('active');
-      overlay?.classList.remove('active');
-      sidebar?.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = 'auto';
-    };
-
-    hamburger?.addEventListener('click', openSidebar);
-    hamburger?.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter') openSidebar();
-    });
-    closeSidebarBtn?.addEventListener('click', closeSidebar);
-    overlay?.addEventListener('click', closeSidebar);
-
-    document.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeSidebar();
-    });
-
-    // ---- VIDEO MODAL FUNCTIONALITY ----
+ // ---- VIDEO MODAL FUNCTIONALITY ----
     const watchDemoBtn = document.querySelector('.btn-outline') as HTMLElement;
     const videoModal = document.getElementById('videoModal') as HTMLElement;
     const closeVideoBtn = document.querySelector('.close-video') as HTMLElement;
