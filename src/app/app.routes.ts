@@ -17,7 +17,6 @@ import { PrescriptionsComponent } from "./features/Pharmacy/components/prescript
 import { ReportsComponent } from "./features/Pharmacy/components/reports/reports.component";
 import { SettingsComponent } from "./features/Pharmacy/components/settings/settings.component";
 import { DoctorComponent } from "./features/doctor/components/doctor/doctor.component";
-import path from "path";
 import { PatientsComponent } from "./features/doctor/components/patients/patients.component";
 import { MedicalRecordComponent } from "./features/doctor/components/medical-record/medical-record.component";
 import { DocMyappointmentComponent } from "./features/doctor/components/doc-myappointment/doc-myappointment.component";

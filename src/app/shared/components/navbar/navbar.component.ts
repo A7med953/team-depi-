@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, input, Input } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -17,6 +18,8 @@ export class NavbarComponent implements OnInit {
       this.setupSidebarFunctionality();
     }
   }
+
+  @Input() layout!:string;
 
   /*sidebar*/
   setupSidebarFunctionality(): void {
