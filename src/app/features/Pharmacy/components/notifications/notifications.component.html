@@ -1,1 +1,46 @@
-<p>notifications works!</p>
+<div class="notifications-container">
+  <header class="page-header">
+    <h1>Notifications</h1>
+    <span class="unread-badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+  </header>
+  <div class="main-notifications-card">
+    <div class="notifications-list">
+      <div 
+        *ngFor="let notification of notifications" 
+        class="notification-card"
+        [class.unread]="!notification.read">
+        
+        <div class="notification-icon">
+          <i [class]="notification.icon"></i>
+        </div>
+
+        <div class="notification-content">
+          <div class="notification-header-row">
+            <h3 class="notification-title">{{ notification.title }}</h3>
+            <div class="notification-right">
+              <span class="notification-time">{{ notification.time }}</span>
+              <button 
+                class="dismiss-button"
+                (click)="dismissNotification(notification.id, $event)"
+                title="Dismiss">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <p class="notification-message">{{ notification.message }}</p>
+
+          <a 
+            *ngIf="!notification.read" 
+            class="mark-read-link"
+            (click)="markAsRead(notification.id, $event)">
+            Mark as read
+          </a>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="notifications.length === 0" class="empty-state">
+      <i class="fas fa-bell-slash"></i>
+      <p>No notifications</p>
+    </div>
+  </div>
+</div>

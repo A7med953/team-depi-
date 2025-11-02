@@ -209,6 +209,7 @@ body {
         flex-direction: column;
         width: 100%;
         background-color: var(--color-bg-card);
+        position: relative;
     }
 
     .sidebar.mobile-open .navigation {
@@ -217,6 +218,7 @@ body {
         position: absolute;
         z-index: 10;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        top: 60px;
     }
 
     .nav-item {
