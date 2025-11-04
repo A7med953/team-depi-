@@ -1,3 +1,26 @@
+/* -------------------- GENERAL STYLES -------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* * ملاحظة: body و :root لا يجب أن توضع في ملف CSS الخاص بالمكون (Component CSS).
+ * يجب إزالة selector body و * :root {}
+ * تم استبدال قيم CSS Variables الثابتة هنا.
+ */
+.dashboard-container {
+    /* --color-bg-light: #f9fafb; */
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9fafb;
+    /* --color-text-main: #333333; */
+    color: #333333;
+    /* padding: 30px; يتم وضع البادينغ في ملف styles.css العام أو في وسم المكون */
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 /* -------------------- HEADER -------------------- */
 .dashboard-header {
     display: flex;
@@ -115,6 +138,15 @@
     font-weight: 700;
     font-size: 0.85rem;
 }
+ .refresh-btn {
+            background-color: #f39c12;
+            margin-right: 12px;
+        }
+
+        .refresh-btn:hover {
+            background-color: #e67e22;
+        }
+
 
 .expiring-alert {
     border-left: 5px solid #f39c12;
@@ -347,7 +379,7 @@
     border-color: #00b4cc;
 }
 
-/*  Responsiveness */
+/* Responsiveness */
 @media (max-width: 992px) {
     .alerts-section {
         grid-template-columns: 1fr;
@@ -363,9 +395,19 @@
         align-items: flex-start;
         gap: 15px;
     }
+
+    /* * التعديل المطلوب: إضافة مسافة علوية لزر الإضافة */
     .add-item-btn {
         width: 100%;
+        margin-top: 15px; /* المسافة بين زر Refresh و Add-item */
     }
+
+    /* * لجعل زر التحديث بعرض كامل أيضًا، مما يضمن تكدسهما عمودياً مع المسافة */
+    .refresh-btn {
+        width: 100%;
+        margin-right: 0;
+    }
+
     .card-actions {
         flex-wrap: wrap;
     }

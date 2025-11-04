@@ -1,22 +1,24 @@
 <div class="dashboard-container">
-
-  <!-- ================= Header ================= -->
   <header class="dashboard-header">
     <div class="title-and-alerts">
       <h1>Inventory Management</h1>
       <p class="header-alerts-text">
-        <span class="low-stock-count">1 low stock alert</span>
+        <span class="low-stock-count">{{ lowStockCount }}</span>
         •
-        <span class="expiring-count">3 expiring soon</span>
+        <span class="expiring-count">{{ expiringCount }}</span>
       </p>
     </div>
 
-    <button class="add-item-btn" (click)="onAddItemClick()">
-      <i class="fas fa-plus"></i> Add Item
-    </button>
+    <div class="header-buttons">
+      <button class="add-item-btn refresh-btn" (click)="refreshInventory()">
+        <i class="fas fa-sync-alt"></i> Refresh
+      </button>
+      <button class="add-item-btn" routerLink="/pharmacy/add-item">
+        <i class="fas fa-plus"></i> Add Item
+      </button>
+    </div>
   </header>
 
-  <!-- ================= Alerts Section ================= -->
   <section class="alerts-section">
     <div class="alert-card low-stock-alert">
       <div class="alert-header">
@@ -24,9 +26,10 @@
         <h2>Low Stock Alerts</h2>
       </div>
       <ul class="alert-list">
-        <li class="alert-item">
-          <span>Metformin 500mg</span>
-          <span class="alert-count">25 left</span>
+        <li *ngIf="lowStockItems.length === 0" class="alert-item">No low stock items</li>
+        <li *ngFor="let item of lowStockItems" class="alert-item">
+          <span>{{ item.name }}</span>
+          <span class="alert-count">{{ item.stock }} left</span>
         </li>
       </ul>
     </div>
@@ -37,152 +40,102 @@
         <h2>Expiring Soon</h2>
       </div>
       <ul class="alert-list">
-        <li class="alert-item">
-          <span>Lisinopril 10mg</span>
-          <span class="alert-date">6/15/2025</span>
-        </li>
-        <li class="alert-item">
-          <span>Metformin 500mg</span>
-          <span class="alert-date">3/20/2025</span>
-        </li>
-        <li class="alert-item expiring-danger-text">
-          <span>Amoxicillin 250mg</span>
-          <span class="alert-date">12/30/2024</span>
+        <li *ngIf="expiringItems.length === 0" class="alert-item">No expiring items</li>
+        <li *ngFor="let item of expiringItems" class="alert-item" [class.expiring-danger-text]="isExpiringSoon(item.expiry)">
+          <span>{{ item.name }}</span>
+          <span class="alert-date">{{ formatDate(item.expiry) }}</span>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- ================= Search Section ================= -->
   <section class="search-section">
     <div class="search-input-wrapper">
       <i class="fas fa-search"></i>
       <input
         type="text"
-        id="searchInput"
+        [(ngModel)]="searchTerm"
         placeholder="Search by medication name, category, or supplier..."
-        (input)="filterInventory($event)"
+        id="searchInput"
       />
     </div>
   </section>
 
-  <!-- ================= Inventory List ================= -->
   <main class="inventory-list-container">
-    <!-- ========== Card 1 ========== -->
     <div
+      *ngFor="let item of filteredInventory()"
       class="inventory-card"
-      data-name="Lisinopril 10mg"
-      data-category="Cardiovascular"
-      data-supplier="PharmaCorp"
+      [attr.data-name]="item.name"
+      [attr.data-category]="item.category"
+      [attr.data-supplier]="item.supplier"
     >
       <div class="card-header-content">
         <div class="medication-details">
-          <i class="fas fa-capsules medication-icon"></i>
+          <i class="fas fa-pills medication-icon"></i>
           <div>
-            <span class="medication-name">Lisinopril 10mg</span>
-            <span class="medication-sub-details">Cardiovascular | Batch: LIS2024001</span>
+            <span class="medication-name">{{ item.name }}</span>
+            <span class="medication-sub-details">
+              {{ item.category }} | Batch: {{ item.batch }}
+            </span>
           </div>
         </div>
+
         <div class="stock-tags">
-          <span class="tag normal-stock">normal stock</span>
-          <span class="tag expiring-soon-tag">Expiring Soon</span>
+          <span
+            class="tag"
+            [ngClass]="item.stock <= item.minStock ? 'low-stock-tag' : 'normal-stock'"
+            >{{ item.stock <= item.minStock ? 'low stock' : 'normal stock' }}</span
+          >
+          <span *ngIf="isExpiringSoon(item.expiry)" class="tag expiring-soon-tag">
+            Expiring Soon
+          </span>
         </div>
       </div>
 
       <div class="card-body-content">
         <div class="detail-group">
-          <p class="detail-item"><span class="label">Current Stock:</span> <span class="value">150</span></p>
-          <p class="detail-item"><span class="label">Unit Price:</span> <span class="value">$0.25</span></p>
-          <p class="detail-item"><span class="label">Expiry Date:</span> <span class="value expiring-warning-text">6/15/2025</span></p>
+          <p class="detail-item">
+            <span class="label">Current Stock:</span>
+            <span class="value" [ngClass]="{ 'low-stock-value': item.stock <= item.minStock }">
+              {{ item.stock }}
+            </span>
+          </p>
+          <p class="detail-item">
+            <span class="label">Unit Price:</span>
+            <span class="value">${{ item.price }}</span>
+          </p>
+          <p class="detail-item">
+            <span class="label">Expiry Date:</span>
+            <span class="value" [ngClass]="getExpiryClass(item.expiry)">
+              {{ formatDate(item.expiry) }}
+            </span>
+          </p>
         </div>
+
         <div class="detail-group">
-          <p class="detail-item"><span class="label">Min Stock:</span> <span class="value">50</span></p>
-          <p class="detail-item"><span class="label">Supplier:</span> <span class="value supplier-name">PharmaCorp</span></p>
+          <p class="detail-item">
+            <span class="label">Min Stock:</span>
+            <span class="value">{{ item.minStock }}</span>
+          </p>
+          <p class="detail-item">
+            <span class="label">Supplier:</span>
+            <span class="value">{{ item.supplier }}</span>
+          </p>
         </div>
       </div>
 
       <div class="card-actions">
-        <button class="action-btn update-btn">Update Stock</button>
-        <button class="action-btn view-btn">View Details</button>
-      </div>
-    </div>
-
-    <!-- ========== Card 2 ========== -->
-    <div
-      class="inventory-card low-stock-item"
-      data-name="Metformin 500mg"
-      data-category="Diabetes"
-      data-supplier="MediSupply"
-    >
-      <div class="card-header-content">
-        <div class="medication-details">
-          <i class="fas fa-prescription-bottle medication-icon"></i>
-          <div>
-            <span class="medication-name">Metformin 500mg</span>
-            <span class="medication-sub-details">Diabetes | Batch: MET2024002</span>
-          </div>
-        </div>
-        <div class="stock-tags">
-          <span class="tag low-stock-tag">low stock</span>
-          <span class="tag expiring-soon-tag">Expiring Soon</span>
-        </div>
-      </div>
-
-      <div class="card-body-content">
-        <div class="detail-group">
-          <p class="detail-item"><span class="label">Current Stock:</span> <span class="value low-stock-value">25</span></p>
-          <p class="detail-item"><span class="label">Unit Price:</span> <span class="value">$0.15</span></p>
-          <p class="detail-item"><span class="label">Expiry Date:</span> <span class="value expiring-warning-text">3/20/2025</span></p>
-        </div>
-        <div class="detail-group">
-          <p class="detail-item"><span class="label">Min Stock:</span> <span class="value">100</span></p>
-          <p class="detail-item"><span class="label">Supplier:</span> <span class="value supplier-name">MediSupply</span></p>
-        </div>
-      </div>
-
-      <div class="card-actions">
-        <button class="action-btn update-btn">Update Stock</button>
-        <button class="action-btn view-btn">View Details</button>
-      </div>
-    </div>
-
-    <!-- ========== Card 3 ========== -->
-    <div
-      class="inventory-card"
-      data-name="Amoxicillin 250mg"
-      data-category="Antibiotic"
-      data-supplier="PharmaCorp"
-    >
-      <div class="card-header-content">
-        <div class="medication-details">
-          <i class="fas fa-syringe medication-icon"></i>
-          <div>
-            <span class="medication-name">Amoxicillin 250mg</span>
-            <span class="medication-sub-details">Antibiotic | Batch: AMX2024003</span>
-          </div>
-        </div>
-        <div class="stock-tags">
-          <span class="tag normal-stock">normal stock</span>
-          <span class="tag expiring-soon-tag expiring-danger-tag">Expiring Soon</span>
-        </div>
-      </div>
-
-      <div class="card-body-content">
-        <div class="detail-group">
-          <p class="detail-item"><span class="label">Current Stock:</span> <span class="value">300</span></p>
-          <p class="detail-item"><span class="label">Unit Price:</span> <span class="value">$0.35</span></p>
-          <p class="detail-item"><span class="label">Expiry Date:</span> <span class="value expiring-danger-text">12/30/2024</span></p>
-        </div>
-        <div class="detail-group">
-          <p class="detail-item"><span class="label">Min Stock:</span> <span class="value">100</span></p>
-          <p class="detail-item"><span class="label">Supplier:</span> <span class="value supplier-name">PharmaCorp</span></p>
-        </div>
-      </div>
-
-      <div class="card-actions">
-        <button class="action-btn update-btn">Update Stock</button>
-        <button class="action-btn view-btn">View Details</button>
+        <button class="action-btn update-btn" routerLink="/pharmacy/update-stock">
+          Update Stock
+        </button>
+        <button class="action-btn view-btn" (click)="viewItem(item.name)">
+          View Details
+        </button>
       </div>
     </div>
   </main>
+
+  <div class="last-updated">
+    Last updated: <span>{{ lastUpdatedTime }}</span>
+  </div>
 </div>

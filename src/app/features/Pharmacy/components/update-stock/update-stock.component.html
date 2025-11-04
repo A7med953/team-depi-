@@ -1,0 +1,100 @@
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>Update Stock</h1>
+    <a routerLink="/pharmacy/inventory" class="back-btn">
+  <i class="fas fa-arrow-left"></i> Back to Inventory
+</a>
+  </header>
+
+  <section class="update-section">
+    <div class="section-header">
+      <i class="fas fa-edit"></i>
+      <h2>Update Medication Stock</h2>
+    </div>
+
+    <div class="current-stock-info">
+      <h3>Current Stock Information</h3>
+      <div class="stock-details">
+        <div class="stock-item">
+          <span class="stock-label">Medication:</span>
+          <span class="stock-value">{{ currentMedication }}</span>
+        </div>
+        <div class="stock-item">
+          <span class="stock-label">Current Stock:</span>
+          <span class="stock-value">{{ currentStock }}</span>
+        </div>
+        <div class="stock-item">
+          <span class="stock-label">Minimum Stock:</span>
+          <span class="stock-value">{{ minStock }}</span>
+        </div>
+        <div class="stock-item">
+          <span class="stock-label">Status:</span>
+          <span class="stock-value" [ngClass]="statusClass">{{ stockStatus }}</span>
+        </div>
+      </div>
+    </div>
+
+    <form (ngSubmit)="updateStock()" #updateForm="ngForm">
+      <div class="form-group">
+        <label for="medicationSelect">Select Medication</label>
+        <select id="medicationSelect" required [(ngModel)]="selectedMedication" name="medication">
+          <option value="">Choose a medication...</option>
+          <option *ngFor="let med of medications" [value]="med.name">{{ med.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="updateType">Update Type</label>
+          <select id="updateType" required [(ngModel)]="updateType" name="updateType">
+            <option value="add">Add Stock</option>
+            <option value="remove">Remove Stock</option>
+            <option value="set">Set New Quantity</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input type="number" id="quantity" min="1" required [(ngModel)]="quantity" name="quantity">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="reason">Reason for Update</label>
+        <select id="reason" required [(ngModel)]="reason" name="reason">
+          <option value="">Select reason...</option>
+          <option value="restock">Restock from supplier</option>
+          <option value="sale">Sale/Dispensing</option>
+          <option value="adjustment">Inventory adjustment</option>
+          <option value="damage">Damaged/Lost items</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="notes">Notes (Optional)</label>
+        <input type="text" id="notes" [(ngModel)]="notes" name="notes" placeholder="Any additional notes...">
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" routerLink="/inventory">Cancel</button>
+        <button type="submit" class="update-btn">Update Stock</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="activity-section">
+    <div class="section-header">
+      <i class="fas fa-history"></i>
+      <h2>Recent Stock Updates</h2>
+    </div>
+    <ul class="activity-list">
+      <li class="activity-item" *ngFor="let act of recentActivity">
+        <div class="activity-details">
+          <i class="fas" [ngClass]="act.icon + ' activity-icon'"></i>
+          <div class="activity-text" [innerHTML]="act.text"></div>
+        </div>
+        <div class="activity-time">{{ act.time }}</div>
+      </li>
+    </ul>
+  </section>
+</div>

@@ -1,68 +1,164 @@
-import { Component, OnInit, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
+interface InventoryItem {
+  name: string;
+  category: string;
+  supplier: string;
+  stock: number;
+  minStock: number;
+  expiry: string;
+  batch: string;
+  price: string;
+}
 
 @Component({
   selector: 'app-inventory',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './inventory.component.html',
-  styleUrl: './inventory.component.css'
+  styleUrls: ['./inventory.component.css']
 })
-export class InventoryComponent  implements OnInit {
-@ViewChild('searchInput') searchInput: ElementRef | undefined;
+export class InventoryComponent implements OnInit {
+  inventory: InventoryItem[] = [];
+  lowStockItems: InventoryItem[] = [];
+  expiringItems: InventoryItem[] = [];
+  searchTerm = '';
+  lastUpdatedTime = 'Just now';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  // ✅ المتغيرات الجديدة للعرض في الـ header
+  lowStockCount: number = 0;
+  expiringCount: number = 0;
 
-  ngOnInit(): void {
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
+  ngOnInit() {
+    this.loadInventory();
+    setInterval(() => this.updateLastUpdatedTime(), 5000);
+  }
+
+  /* ---------- تحميل المخزون ---------- */
+  loadInventory() {
     if (isPlatformBrowser(this.platformId)) {
-      this.setupActionListeners();
+      const stored = localStorage.getItem('inventory');
+      this.inventory = stored ? JSON.parse(stored) : this.defaultInventory();
+      this.updateAlerts();
+      this.updateLastUpdatedTime();
+    } else {
+      console.warn('localStorage is not available in this environment.');
+      this.inventory = this.defaultInventory();
     }
   }
 
-  filterInventory(event: Event) {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    const inputElement = event.target as HTMLInputElement;
-    const filter = inputElement.value.toUpperCase();
-
-    const cards = document.querySelectorAll('.inventory-card');
-
-    cards.forEach(card => {
-      const name = card.getAttribute('data-name')?.toUpperCase() || '';
-      const category = card.getAttribute('data-category')?.toUpperCase() || '';
-      const supplier = card.getAttribute('data-supplier')?.toUpperCase() || '';
-
-      if (name.includes(filter) || category.includes(filter) || supplier.includes(filter)) {
-        (card as HTMLElement).style.display = "";
-      } else {
-        (card as HTMLElement).style.display = "none";
+  /* ---------- بيانات افتراضية ---------- */
+  defaultInventory(): InventoryItem[] {
+    const defaultData: InventoryItem[] = [
+      {
+        name: 'Lisinopril 10mg',
+        category: 'Cardiovascular',
+        supplier: 'PharmaCorp',
+        stock: 150,
+        minStock: 50,
+        expiry: '2025-06-15',
+        batch: 'LIS2024001',
+        price: '0.25'
+      },
+      {
+        name: 'Metformin 500mg',
+        category: 'Diabetes',
+        supplier: 'MediSupply',
+        stock: 25,
+        minStock: 100,
+        expiry: '2025-03-20',
+        batch: 'MET2024002',
+        price: '0.15'
+      },
+      {
+        name: 'Amoxicillin 250mg',
+        category: 'Antibiotic',
+        supplier: 'PharmaCorp',
+        stock: 300,
+        minStock: 100,
+        expiry: '2024-12-30',
+        batch: 'AMX2024003',
+        price: '0.35'
       }
-    });
+    ];
+
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('inventory', JSON.stringify(defaultData));
+    }
+
+    return defaultData;
   }
 
-  setupActionListeners(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
+  /* ---------- تحديث التنبيهات ---------- */
+  updateAlerts() {
+    const today = new Date();
+    const threeMonths = new Date(today);
+    threeMonths.setMonth(today.getMonth() + 3);
 
-    document.querySelectorAll('.action-btn').forEach(button => {
-      button.addEventListener('click', (event) => {
-        const target = event.target as HTMLElement;
-        const card = target.closest('.inventory-card');
-        const medicationName = card?.querySelector('.medication-name')?.textContent;
+    this.lowStockItems = this.inventory.filter(item => item.stock <= item.minStock);
+    this.expiringItems = this.inventory.filter(item => new Date(item.expiry) <= threeMonths);
 
-        if (target.classList.contains('update-btn') && medicationName) {
-          console.log(`Update Stock for: ${medicationName}`);
-        } else if (target.classList.contains('view-btn') && medicationName) {
-          console.log(`View Details for: ${medicationName}`);
-        }
-      });
-    });
-
-    document.querySelector('.add-item-btn')?.addEventListener('click', () => {
-      console.log('فتح نموذج إضافة عنصر جديد');
-    });
+    // ✅ تحديث القيم المعروضة في الـ header
+    this.lowStockCount = this.lowStockItems.length;
+    this.expiringCount = this.expiringItems.length;
   }
 
-  onAddItemClick(): void {
-    console.log('فتح نموذج إضافة عنصر جديد ');
+  /* ---------- تحديث العرض ---------- */
+  refreshInventory() {
+    this.loadInventory();
+  }
+
+  /* ---------- تحديث الوقت ---------- */
+  updateLastUpdatedTime() {
+    this.lastUpdatedTime = new Date().toLocaleTimeString();
+  }
+
+  /* ---------- صلاحية الدواء ---------- */
+  isExpiringSoon(expiry: string): boolean {
+    const oneMonth = new Date();
+    oneMonth.setMonth(oneMonth.getMonth() + 1);
+    return new Date(expiry) <= oneMonth;
+  }
+
+  getExpiryClass(expiry: string): string {
+    if (this.isExpiringSoon(expiry)) return 'expiring-danger-text';
+    return '';
+  }
+
+  /* ---------- تنسيق التاريخ ---------- */
+  formatDate(date: string): string {
+    const d = new Date(date);
+    return isNaN(d.getTime())
+      ? date
+      : `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+  }
+
+  /* ---------- الانتقال إلى صفحة تعديل المخزون ---------- */
+  goToUpdateStock(name: string) {
+    this.router.navigate(['/update-stock'], { queryParams: { medication: name } });
+  }
+
+  /* ---------- عرض تفاصيل العنصر ---------- */
+  viewItem(name: string) {
+    alert(`Viewing details for: ${name}`);
+  }
+
+  /* ---------- الفلترة ---------- */
+  filteredInventory(): InventoryItem[] {
+    const term = this.searchTerm.toLowerCase();
+    return this.inventory.filter(
+      i =>
+        i.name.toLowerCase().includes(term) ||
+        i.category.toLowerCase().includes(term) ||
+        i.supplier.toLowerCase().includes(term)
+    );
   }
 }
