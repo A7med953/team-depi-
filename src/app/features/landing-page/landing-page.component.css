@@ -569,7 +569,6 @@ color: #fff;
   .hero-buttons { flex-direction: column; gap: .7rem; }
   .btn-primary, .btn-outline { width: 100%; max-width: 360px; }
 
-
   .hero-stats {
     position: absolute;
     transform: translateX(-50%);
@@ -577,18 +576,26 @@ color: #fff;
     width: calc(100% - 2rem);
     border-radius: .8rem;
     display: flex;
-    flex-direction: column;
-    gap: .6rem;
-    padding: .1rem 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: .5rem;
+    padding: .8rem 1rem;
     left: 50%;
   }
   .hero-stats .stat-item {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: .1rem 0;
+    width: auto;
+    min-width: 20%;
+    flex: 1 1 20%;
+    padding: 0;
+    text-align: center;
   }
+  .hero-stats .stat-item h3 {
+    font-size: 1.4rem;
+  }
+  .hero-stats .stat-item p {
+    font-size: 0.75rem;
+  }
+
 
   .about-system { padding: 4rem 1rem; }
   .about-system-content { gap: 1.5rem; flex-direction: column-reverse; align-items: center; }

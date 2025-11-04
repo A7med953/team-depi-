@@ -21,7 +21,8 @@ import { PatientsComponent } from "./features/doctor/components/patients/patient
 import { MedicalRecordComponent } from "./features/doctor/components/medical-record/medical-record.component";
 import { DocMyappointmentComponent } from "./features/doctor/components/doc-myappointment/doc-myappointment.component";
 import { RegisterComponent } from "./core/Auth/components/register/register.component";
-
+import { UpdateStockComponent } from './features/Pharmacy/components/update-stock/update-stock.component';
+import { AddItemComponent } from './features/Pharmacy/components/add-item/add-item.component';
 export const routes: Routes = [
 
   {
@@ -47,7 +48,7 @@ export const routes: Routes = [
       {path:'',redirectTo:'Appointments', pathMatch:'full'}
     ]
   },
-  
+
   {
     path: 'patient',
     component: PatientComponent,
@@ -74,6 +75,8 @@ export const routes: Routes = [
       { path: 'notifications', component: NotificationComponent },
       { path: 'patient-lookup', component: PatientLookupComponent },
       { path: '', redirectTo: 'reports', pathMatch: 'full' },
+      { path: 'update-stock', component: UpdateStockComponent },
+      { path: 'add-item', component: AddItemComponent }
     ],
   },
 ];
