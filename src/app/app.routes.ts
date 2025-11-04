@@ -20,6 +20,7 @@ import { DoctorComponent } from "./features/doctor/components/doctor/doctor.comp
 import { PatientsComponent } from "./features/doctor/components/patients/patients.component";
 import { MedicalRecordComponent } from "./features/doctor/components/medical-record/medical-record.component";
 import { DocMyappointmentComponent } from "./features/doctor/components/doc-myappointment/doc-myappointment.component";
+import { RegisterComponent } from "./core/Auth/components/register/register.component";
 
 export const routes: Routes = [
 
@@ -31,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component:RegisterComponent
   },
 
   {path:'doctor',component:DoctorComponent,

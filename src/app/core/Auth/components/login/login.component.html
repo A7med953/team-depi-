@@ -1,26 +1,51 @@
 <app-navbar layout="auth"></app-navbar>
-<div class="login-card">
-<h2>تسجيل الدخول</h2>
-<form [formGroup]="form" (ngSubmit)="submit()">
-<label>البريد الإلكتروني</label>
-<input type="email" formControlName="email" placeholder="email@example.com" />
-<div class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-ادخل بريد إلكتروني صحيح.
+
+<div class="container reverse">
+  <div class="forms-container">
+    <div class="signin-signup">
+      <!-- Login form -->
+      <form [formGroup]="form" (ngSubmit)="submit()" class="sign-in-form">
+        <h2 class="title">Sign In</h2>
+
+        <div class="input-field">
+          <i class="fas fa-envelope"></i>
+          <input type="email" formControlName="email" placeholder="Email address" />
+        </div>
+        <div class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+          Please enter a valid email address.
+        </div>
+
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" formControlName="password" placeholder="Password" />
+        </div>
+        <div class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+          Password is too short.
+        </div>
+
+        <div class="error" *ngIf="error">{{ error }}</div>
+
+        <button type="submit" class="btn solid" [disabled]="form.invalid">Login</button>
+
+        <p class="social-text">Or sign in with social platforms</p>
+        <div class="social-media">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel left-panel">
+      <div class="content">
+        <h3>Welcome back!</h3>
+        <p>We’re happy to see you again. Sign in to continue your care.</p>
+      </div>
+      <img src="/Images/log.svg" class="image" alt="login illustration" />
+    </div>
+  </div>
 </div>
-
-
-<label>كلمة المرور</label>
-<input type="password" formControlName="password" placeholder="password" />
-<div class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
-كلمة المرور قصيرة.
-</div>
-
-
-<div class="error" *ngIf="error">{{ error }}</div>
-
-
-<button type="submit" [disabled]="form.invalid">دخول</button>
-</form>
-
-
-</div>
+<app-footer></app-footer>
