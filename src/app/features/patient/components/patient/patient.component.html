@@ -14,7 +14,7 @@
             <li><a routerLink="my-profile" routerLinkActive="active"><i class="fa fa-user-o"></i> My Profile</a></li>
         </ul>
         <div class="sign-out">
-            <button><i class="fa fa-sign-out"></i> Sign out</button>
+            <button (click)="signOut()"><i class="fa fa-sign-out"></i> Sign out</button>
         </div>
     </aside>
 
@@ -40,7 +40,7 @@
                 <li><a routerLink="my-profile" routerLinkActive="active" (click)="toggleMenu()"><i class="fa fa-user-o"></i> My Profile</a></li>
             </ul>
             <div class="sign-out">
-                <button (click)="toggleMenu()" class="btn"><i class="fa fa-sign-out"></i> Sign out</button>
+                <button (click)="signOut()" class="btn"><i class="fa fa-sign-out"></i> Sign out</button>
                 </div>
         </div>
     </nav>
