@@ -1,0 +1,21 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.badge {
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  padding: 0.4em 0.6em;
+  border-radius: 0.5rem;
+}
+.card .btn1 {
+   background-color: var(--color-primary);
+}
+.calebtn{
+   background-color: var(--color-primary);
+}
