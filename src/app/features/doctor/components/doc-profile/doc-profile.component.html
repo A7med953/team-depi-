@@ -1,0 +1,93 @@
+<div class="container py-4">
+  <div class="card shadow-sm border-0 rounded-3">
+    <div class="card-body text-center">
+      <img
+        [src]="doctor.image"
+        alt="Doctor Profile"
+        class="profile-img mb-3"
+      />
+
+      <h3 class="fw-bold ">{{ doctor.name }}</h3>
+      <p class="text-muted mb-1">{{ doctor.specialty }}</p>
+      <p class="text-muted mb-3"><i class="fa-solid fa-location-dot"></i> {{ doctor.location }}</p>
+
+      <div class="d-flex justify-content-center gap-3 mb-3 flex-wrap">
+        <div><i class="fa-solid fa-envelope"></i> {{ doctor.email }}</div>
+        <div><i class="fa-solid fa-phone"></i> {{ doctor.phone }}</div>
+        <div><i class="fa-solid fa-briefcase"></i> {{ doctor.experience }}</div>
+      </div>
+
+      <p class="text-secondary">{{ doctor.bio }}</p>
+
+      <hr />
+
+      <h5 class="fw-semibold">Education</h5>
+      <p class="text-muted mb-3">{{ doctor.education }}</p>
+
+      <button class="btn " (click)="toggleEdit()">
+        <i class="fa-solid" [ngClass]="isEditing ? 'fa-xmark' : 'fa-pen'"></i>
+        {{ isEditing ? 'Cancel Edit' : 'Edit Profile' }}
+      </button>
+    </div>
+
+
+    <div *ngIf="isEditing" class="p-4 bg-light border-top">
+      <h5 class="mb-3 text-primary">Edit Doctor Information</h5>
+
+      <form (ngSubmit)="saveChanges()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="editedDoctor.name" name="name" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Specialty</label>
+            <input type="text" class="form-control" [(ngModel)]="editedDoctor.specialty" name="specialty" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Email</label>
+            <input type="email" class="form-control" [(ngModel)]="editedDoctor.email" name="email" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Phone</label>
+            <input type="text" class="form-control" [(ngModel)]="editedDoctor.phone" name="phone" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Location</label>
+            <input type="text" class="form-control" [(ngModel)]="editedDoctor.location" name="location" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Experience</label>
+            <input type="text" class="form-control" [(ngModel)]="editedDoctor.experience" name="experience" />
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold">Education</label>
+            <input type="text" class="form-control" [(ngModel)]="editedDoctor.education" name="education" />
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold">Bio</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="editedDoctor.bio" name="bio"></textarea>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold">Profile Image URL</label>
+            <input type="text" class="form-control" [(ngModel)]="editedDoctor.image" name="image" />
+          </div>
+        </div>
+
+        <div class="text-end mt-4">
+          <button type="submit" class="btn btn-success px-4">
+            <i class="fa-solid fa-floppy-disk"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

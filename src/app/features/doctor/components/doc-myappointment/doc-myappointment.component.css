@@ -19,3 +19,39 @@
 .calebtn{
    background-color: var(--color-primary);
 }
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar-days,
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.day-name {
+  font-size: 0.9rem;
+}
+
+.calendar-day {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: default;
+  transition: 0.2s;
+}
+
+.calendar-day:hover {
+  background-color: #e7f1ff;
+}
+
+.calendar-day.has-appointment {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: bold;
+}

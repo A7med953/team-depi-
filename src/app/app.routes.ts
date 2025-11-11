@@ -23,6 +23,7 @@ import { RegisterComponent } from "./core/Auth/components/register/register.comp
 import { UpdateStockComponent } from './features/Pharmacy/components/update-stock/update-stock.component';
 import { AddItemComponent } from './features/Pharmacy/components/add-item/add-item.component';
 import { DocPatientComponent } from './features/doctor/components/doc-patient/doc-patient.component';
+import { DocProfileComponent } from "./features/doctor/components/doc-profile/doc-profile.component";
 export const routes: Routes = [
 
   {
@@ -44,7 +45,7 @@ export const routes: Routes = [
       {path:'Appointments',component:DocMyappointmentComponent},
       {path:'Medical-Records',component:MedicalRecordComponent},
       {path:'Patients',component:DocPatientComponent},
-      {path:'My-Profile',component:MyProfileComponent},
+      {path:'My-Profile',component:DocProfileComponent},
       {path:'',redirectTo:'Appointments', pathMatch:'full'}
     ]
   },

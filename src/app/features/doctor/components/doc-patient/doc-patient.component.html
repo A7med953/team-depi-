@@ -1,23 +1,23 @@
 <div class="container py-4">
-
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h4 fw-bold text-dark">Today's Patients</h1>
     <button class="calebtn btn btn-primary">
-      <i class="fa-solid fa-user"></i>  
+      <i class="fa-solid fa-user"></i>
       Add New Patient
     </button>
   </div>
 
   <div class="row justify-content-center mb-4">
     <div class="col-md-6">
-      <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input 
-          type="text" 
-          class="form-control search-input" 
-          placeholder="Search by Name or ID..." 
-          [(ngModel)]="searchTerm" 
-          (input)="filterPatients()">
+      <div class="search-container position-relative">
+        <i class="fas fa-search search-icon position-absolute top-50 start-0 translate-middle-y ps-3 text-muted"></i>
+        <input
+          type="text"
+          class="form-control ps-5 search-input"
+          placeholder="Search by Name or ID..."
+          [(ngModel)]="searchTerm"
+          (input)="filterPatients()"
+        />
       </div>
     </div>
   </div>
@@ -36,10 +36,10 @@
         </div>
 
         <div class="text-end mt-3 mt-md-0">
-          <button class="btn btn-outline-info btn-sm me-2">
+          <button class="btn btn-outline-info btn-sm me-2" (click)="openHistory(a)">
             <i class="fa-solid fa-notes-medical"></i> View History
           </button>
-          <button class="btn btn-danger btn-sm">
+          <button class="btn btn-danger btn-sm" (click)="confirmDelete(a)">
             <i class="fa-solid fa-trash"></i> Delete
           </button>
         </div>
@@ -54,4 +54,110 @@
     </div>
   </div>
 
+  <!-- 🩺 Modal for View/Edit History -->
+  <div
+    class="modal fade show"
+    tabindex="-1"
+    *ngIf="selectedPatient"
+    style="display: block; background: rgba(0, 0, 0, 0.5)"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            Medical Details - {{ selectedPatient.name }}
+          </h5>
+          <button type="button" class="btn-close" (click)="closeHistory()"></button>
+        </div>
+
+        <div class="modal-body">
+          <div *ngIf="!isEditing; else editMode">
+            <p><strong>ID:</strong> {{ selectedPatient.id }}</p>
+            <p><strong>Blood Type:</strong> {{ selectedPatient.bloodType }}</p>
+            <p><strong>Disease:</strong> {{ selectedPatient.disease }}</p>
+            <p><strong>Tests:</strong> {{ selectedPatient.tests }}</p>
+            <p><strong>Medication:</strong> {{ selectedPatient.medication }}</p>
+            <p><strong>History:</strong></p>
+            <pre class="bg-light p-2 rounded">{{ selectedPatient.history }}</pre>
+          </div>
+
+          <ng-template #editMode>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Blood Type:</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="selectedPatient.bloodType"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Disease:</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="selectedPatient.disease"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Tests:</label>
+              <textarea
+                rows="2"
+                class="form-control"
+                [(ngModel)]="selectedPatient.tests"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Medication:</label>
+              <textarea
+                rows="2"
+                class="form-control"
+                [(ngModel)]="selectedPatient.medication"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-bold">Medical History:</label>
+              <textarea
+                rows="4"
+                class="form-control"
+                [(ngModel)]="selectedPatient.history"
+              ></textarea>
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            *ngIf="!isEditing"
+            class="btn btn-warning"
+            (click)="enableEdit()"
+          >
+            <i class="fa-solid fa-pen"></i> Edit
+          </button>
+
+          <button
+            *ngIf="isEditing"
+            class="btn btn-success"
+            (click)="saveHistory()"
+          >
+            <i class="fa-solid fa-save"></i> Save
+          </button>
+          <button
+            *ngIf="isEditing"
+            class="btn btn-secondary"
+            (click)="cancelEdit()"
+          >
+            Cancel
+          </button>
+
+          <button
+            *ngIf="!isEditing"
+            class="btn btn-secondary"
+            (click)="closeHistory()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
