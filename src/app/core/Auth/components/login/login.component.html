@@ -23,6 +23,19 @@
           Password is too short.
         </div>
 
+        <div class="input-field select-field">
+          <i class="fas fa-user-tag"></i>
+          <select formControlName="role">
+            <option value="" disabled selected>Select your role</option>
+            <option value="doctor">Doctor</option>
+            <option value="pharmacy">Pharmacy</option>
+            <option value="patient">Patient</option>
+          </select>
+        </div>
+        <div class="error" *ngIf="form.get('role')?.invalid && form.get('role')?.touched">
+          Please select your role.
+        </div>
+
         <div class="error" *ngIf="error">{{ error }}</div>
 
         <button type="submit" class="btn solid" [disabled]="form.invalid">Login</button>
@@ -48,4 +61,5 @@
     </div>
   </div>
 </div>
+
 <app-footer></app-footer>

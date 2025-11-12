@@ -27,6 +27,7 @@ export class LoginComponent {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(3)]],
+      role: ['', Validators.required] 
     });
 
     const q = this.route.snapshot.queryParamMap.get('returnUrl');
@@ -37,7 +38,7 @@ export class LoginComponent {
     this.error = '';
     if (this.form.invalid) return;
 
-    const { email, password } = this.form.value;
+    const { email, password, role } = this.form.value;
     const u = this.auth.login(email!, password!);
 
     if (!u) {
@@ -45,9 +46,14 @@ export class LoginComponent {
       return;
     }
 
-    if (u.role === 'doctor') this.router.navigate(['/doctor']);
-    else if (u.role === 'pharmacy') this.router.navigate(['/pharmacy']);
-    else if (u.role === 'patient') this.router.navigate(['/patient']);
+    if (u.role !== role) {
+      this.error = 'نوع الحساب غير متوافق مع البيانات المدخلة.';
+      return;
+    }
+
+    if (role === 'doctor') this.router.navigate(['/doctor']);
+    else if (role === 'pharmacy') this.router.navigate(['/pharmacy']);
+    else if (role === 'patient') this.router.navigate(['/patient']);
     else this.router.navigate([this.returnUrl]);
   }
 }
