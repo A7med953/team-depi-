@@ -1,1 +1,102 @@
-<p>reports works!</p>
+<div class="reports-container">
+ 
+  <header class="reports-header">
+    <h1>Reports & Analytics</h1>
+  </header>
+
+  <section class="stats-section">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-dollar-sign"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-label">Total Sales</h3>
+        <p class="stat-value">$24,580.50</p>
+        <span class="stat-change positive">+12.5% from last month</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-prescription-bottle-alt"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-label">Prescriptions</h3>
+        <p class="stat-value">342</p>
+        <span class="stat-change positive">+8 from last week</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-warehouse"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-label">Inventory Value</h3>
+        <p class="stat-value">$156,800.00</p>
+        <span class="stat-change neutral">No change</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-label">Active Patients</h3>
+        <p class="stat-value">1,284</p>
+        <span class="stat-change positive">+23 this month</span>
+      </div>
+    </div>
+  </section>
+<section class="charts-section">
+  <div class="chart-card">
+    <h3>Sales Trend</h3>
+    <canvas id="salesTrend"></canvas>
+  </div>
+
+  <div class="chart-card">
+    <h3>Top Selling Medications</h3>
+    <canvas id="topMedications"></canvas>
+  </div>
+
+  <div class="chart-card">
+    <h3>Sales by Category</h3>
+    <canvas id="salesCategory"></canvas>
+  </div>
+
+  <div class="chart-card">
+    <h3>Inventory Value Trend</h3>
+    <canvas id="inventoryTrend"></canvas>
+  </div>
+</section>
+
+  <section class="activity-section">
+    <div class="section-header">
+      <h2>Recent Activity</h2>
+    </div>
+
+    <div class="activity-table">
+      <div class="table-header">
+        <div class="table-cell">Date</div>
+        <div class="table-cell">Activity</div>
+        <div class="table-cell">Type</div>
+        <div class="table-cell">Status</div>
+      </div>
+
+      <div *ngFor="let activity of recentActivities" class="table-row">
+        <div class="table-cell">
+          <span class="date-text">{{ activity.date }}</span>
+          <span class="time-text">{{ activity.time }}</span>
+        </div>
+        <div class="table-cell activity-text">{{ activity.description }}</div>
+        <div class="table-cell">
+          <span class="type-badge" [class]="activity.type">{{ activity.type }}</span>
+        </div>
+        <div class="table-cell">
+          <span class="status-badge" [class]="activity.status">{{ activity.status }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
