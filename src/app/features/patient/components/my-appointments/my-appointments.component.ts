@@ -33,4 +33,9 @@ export class MyAppointmentsComponent implements OnInit {
   viewDetails(appointmentId: number) {
     this.router.navigate(['/patient/appointment', appointmentId]);
   }
+
+  cancelAppointment(appointmentId: number) {
+    this.patientService.deleteAppointment(appointmentId);
+    this.ngOnInit(); // Refresh the appointments list
+  }
 }
