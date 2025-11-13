@@ -17,6 +17,11 @@ header h2 {
     margin: 0 0 0.5rem 0;
 }
 
+header p {
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
 .record-section {
     background-color: var(--color-bg-card);
     border-radius: 12px;
@@ -120,6 +125,91 @@ header h2 {
 .badge.moderate {
     background-color: #ff9800;
     color: var(--color-text-white);
+}
+.add-record {
+  background: var(--color-bg-card);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow-medium);
+  margin-bottom: 2rem;
+}
+
+.add-record h3 {
+  margin-bottom: 1rem;
+  color: var(--color-text-main);
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group input,
+textarea {
+  flex: 1;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-card);
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #00894d;
+}
+
+.btn-secondary {
+  background-color: #ccc;
+  color: #333;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.actions .edit {
+  color: #ffc107;
+}
+
+.actions .delete {
+  color: #dc3545;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.edit-form input,
+.edit-form textarea {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-card);
 }
 
 /* Responsive Styles */
@@ -225,3 +315,6 @@ header h2 {
         grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     }
 }
+
+
+

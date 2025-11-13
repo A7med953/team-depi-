@@ -42,12 +42,12 @@ export class LoginComponent {
     const u = this.auth.login(email!, password!);
 
     if (!u) {
-      this.error = 'البريد الإلكتروني أو كلمة المرور غير صحيحة (مصرح بثلاثة ايميلات فقط).';
+      this.error = 'The email or password is incorrect (only three emails are authorized).';
       return;
     }
 
     if (u.role !== role) {
-      this.error = 'نوع الحساب غير متوافق مع البيانات المدخلة.';
+      this.error = 'The account type does not match the entered information.';
       return;
     }
 
