@@ -1,0 +1,42 @@
+section {
+    width: 100%;
+}
+.per-info, .test-info, .inv-info, .gen-info, .obs-info, .fam-info, .med-info {
+    width: 90%;
+    margin: 0;
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 1.5rem;
+    color: var(--color-text-main);
+    margin: 0 0 0.5rem 0;
+}
+.perinfo {
+    display: flex;
+    gap: 15px; 
+}
+.perinfo img {
+    width: 250px;
+    height: 250px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+.container {
+    background-color: var(--color-bg-section);
+    border: 1px solid var(--color-border-card);
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s;
+    width: 100%;
+}
+.container:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-4px);
+}
+strong {
+    color: var(--color-primary);
+}
+p {
+    color: var(--color-text-main);
+    margin: 0.5rem 0;
+}

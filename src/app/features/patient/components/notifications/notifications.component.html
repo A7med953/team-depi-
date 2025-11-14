@@ -1,1 +1,33 @@
-<p>notifications works!</p>
+<section class="not-section">
+    <div class="not-contaier">
+        <div class="not-header">
+            <i class="fa-regular fa-bell"></i> 
+            <h2>Notifications</h2>
+            <span class="not-num">{{ notifications.length }}</span>
+        </div>
+
+        <div class="nots-list">
+            <div class="not" *ngFor="let not of notifications; let i = index">
+                <i [class]="not.icon"></i>
+                <div class="not-info">
+                    <div class="not-head">
+                        <h3>{{ not.title }}</h3>
+                        <div class="not-left">
+                            <span>{{ not.time }}</span>
+                            <button class="clear-not" (click)="clearNotification(i)" title="Clear notification" aria-label="Clear notification">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p>{{ not.message }}</p>
+                    <button class="read-not" *ngIf="!not.read" (click)="markAsRead(i)">
+                        <span>{{ not.read ? 'done' : 'Mark as read' }}</span>
+                    </button>
+                    <span *ngIf="not.read" class="read-status"><i class="fa-solid fa-check-double"></i> Read</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
