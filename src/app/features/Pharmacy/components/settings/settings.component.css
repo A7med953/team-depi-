@@ -92,14 +92,14 @@
 }
 
 .edit-btn {
-    background-color: #00b4cc;
+    background-color:var(--color-primary-dark);
     align-self: flex-end;
     margin-top: 15px;
     width: 100%;
 }
 
 .edit-btn:hover {
-    background-color: #0086a1;
+    background-color: var(--color-primary-light);
 }
 
 .logout-btn {
@@ -110,12 +110,12 @@
 }
 
 .settings-btn {
-    background-color: #0086a1;
+    background-color: var(--color-primary-dark);
     padding: 5px 10px;
     font-size: 0.9rem;
 }
 .settings-btn:hover {
-    background-color: #006e83;
+       background-color: var(--color-primary-light);
 }
 
 .toggle-icon {

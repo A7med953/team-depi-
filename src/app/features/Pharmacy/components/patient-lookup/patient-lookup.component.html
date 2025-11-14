@@ -1,70 +1,72 @@
-<div class="container">
-  <h1>🔍 Patient Lookup</h1>
-
+<div class="page-header">
+    <h1> Patient Lookup</h1>
+  </div>
+<div class="container-card">
 
   <div class="search-bar">
     <input type="text" placeholder="Search by patient name or phone..." #searchInput />
     <button (click)="filterPatients(searchInput.value)">Search</button>
   </div>
 
-
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Age</th>
-        <th>Last Visit</th>
-        <th>Doctor</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of filteredPatients">
-        <td>{{ p.name }}</td>
-        <td>{{ p.phone }}</td>
-        <td>{{ p.age }}</td>
-        <td>{{ p.lastVisit }}</td>
-        <td>{{ p.doctor }}</td>
-        <td>
-          <button class="view-btn" (click)="viewPatient(p)">View</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="patient-details" id="patient-details">
-    <div class="patient-header" *ngIf="selectedPatient">
-      <div class="patient-avatar">{{ selectedPatient.name.charAt(0).toUpperCase() }}</div>
-      <div class="patient-info">
-        <h3>{{ selectedPatient.name }}</h3>
-        <p>📞 {{ selectedPatient.phone }}</p>
-        <p>🎂 {{ selectedPatient.age }} years old</p>
-        <p>🏠 {{ selectedPatient.address }}</p>
-        <p>👨‍⚕️ Doctor: {{ selectedPatient.doctor }}</p>
-        <p>📅 Last Visit: {{ selectedPatient.lastVisit }}</p>
-        <button (click)="closeDetails()" style="margin-top:8px; background:#ff4d4f; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Close</button>
-      </div>
-    </div>
-
-    <h4 *ngIf="selectedPatient">🧾 Prescription History</h4>
-    <table class="prescriptions-table" *ngIf="selectedPatient">
+  <div class="table-card">
+    <table>
       <thead>
         <tr>
-          <th>Date</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Age</th>
+          <th>Last Visit</th>
           <th>Doctor</th>
-          <th>Diagnosis</th>
-          <th>Status</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let pr of selectedPatient.prescriptions">
-          <td>{{ pr.date }}</td>
-          <td>{{ pr.doctor }}</td>
-          <td>{{ pr.diagnosis }}</td>
-          <td>{{ pr.status }}</td>
+        <tr *ngFor="let p of filteredPatients">
+          <td data-label="Name">{{ p.name }}</td>
+          <td data-label="Phone">{{ p.phone }}</td>
+          <td data-label="Age">{{ p.age }}</td>
+          <td data-label="Last Visit">{{ p.lastVisit }}</td>
+          <td data-label="Doctor">{{ p.doctor }}</td>
+          <td data-label="Action">
+            <button class="view-btn" (click)="viewPatient(p)">View</button>
+          </td>
         </tr>
       </tbody>
     </table>
+
+    <div class="patient-details" id="patient-details" *ngIf="selectedPatient">
+      <div class="patient-header">
+        <div class="patient-avatar">{{ selectedPatient.name.charAt(0).toUpperCase() }}</div>
+        <div class="patient-info">
+          <h3>{{ selectedPatient.name }}</h3>
+          <p>📞 {{ selectedPatient.phone }}</p>
+          <p>🎂 {{ selectedPatient.age }} years old</p>
+          <p>🏠 {{ selectedPatient.address }}</p>
+          <p>👨‍⚕️ Doctor: {{ selectedPatient.doctor }}</p>
+          <p>📅 Last Visit: {{ selectedPatient.lastVisit }}</p>
+          <button class="close-btn" (click)="closeDetails()">Close</button>
+        </div>
+      </div>
+
+      <h4>🧾 Prescription History</h4>
+      <table class="prescriptions-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Doctor</th>
+            <th>Diagnosis</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pr of selectedPatient.prescriptions">
+            <td>{{ pr.date }}</td>
+            <td>{{ pr.doctor }}</td>
+            <td>{{ pr.diagnosis }}</td>
+            <td>{{ pr.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
