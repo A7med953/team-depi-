@@ -91,19 +91,6 @@ export class ReportsComponent {
     }]
   },
   options: {
-    responsive: true,
-  maintainAspectRatio: false,
-
-    animations: {
-      tension: {
-        duration: 1500,
-        easing: 'easeOutQuart',
-        from: 1,
-        to: 0.3,
-        loop: false
-      }
-    },
-
     plugins: { 
       legend: { display: false } 
     },
