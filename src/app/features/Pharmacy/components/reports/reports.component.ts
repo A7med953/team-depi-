@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Chart } from 'chart.js/auto';
 import { registerables } from 'chart.js';
+import { ViewChild, ElementRef } from '@angular/core';
+
 
 interface Activity {
   date: string;

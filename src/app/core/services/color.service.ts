@@ -4,12 +4,14 @@ import { Injectable } from '@angular/core';
 export class ColorService {
   private storageKey = 'app-theme-primary';
 
-//   constructor() {
-//     const saved = localStorage.getItem(this.storageKey);
-//     if (saved) {
-//       this.applyColor(saved);
-//     }
-//   }
+constructor() {
+  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    const saved = localStorage.getItem(this.storageKey);
+    if (saved) {
+      this.applyColor(saved);
+    }
+  }
+}
 
   setColor(hex: string): void {
     this.applyColor(hex);
