@@ -4,25 +4,72 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-doctor-medical-records',
-  imports: [CommonModule,FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './doctor-medical-records.component.html',
-  styleUrl: './doctor-medical-records.component.css'
+  styleUrls: ['./doctor-medical-records.component.css']
 })
 export class DoctorMedicalRecordsComponent {
-   records = [
-    { title: 'Lisinopril', type: 'Medication', details: '10mg daily - For blood pressure control' },
-    { title: 'Type 2 Diabetes', type: 'Condition', details: 'Managed with Metformin 500mg' },
-    { title: 'Peanut Allergy', type: 'Allergy', details: 'Moderate - causes hives and swelling' }
+
+  searchTerm: string = '';
+
+  patients = [
+    {
+      id: 'P-101',
+      name: 'Ahmed Elsayed',
+      history: [
+        { title: 'Lisinopril', type: 'Medication', details: '10mg daily - For blood pressure control' },
+        { title: 'Type 2 Diabetes', type: 'Condition', details: 'Managed with Metformin 500mg' },
+      ]
+    },
+    {
+      id: 'P-102',
+      name: 'Sara Mahmoud',
+      history: [
+        { title: 'Peanut Allergy', type: 'Allergy', details: 'Moderate - causes hives and swelling' },
+        { title: 'Migraine', type: 'Condition', details: 'Managed with Paracetamol' }
+      ]
+    },
+    {
+      id: 'P-103',
+      name: 'Mohamed Ali',
+      history: [
+        { title: 'Diabetes Checkup', type: 'Condition', details: 'Blood sugar stable' }
+      ]
+    }
   ];
 
-  newRecord = { title: '', type: '', details: '' };
+  records: any[] = [];
+  newRecord = { title: '', type: '', details: '', name: '', id: '' };
   editedRecordIndex: number | null = null;
-  editedRecord = { title: '', type: '', details: '' };
+  editedRecord = { title: '', type: '', details: '', name: '', id: '' };
+
+  constructor() {
+    this.loadAllRecords();
+  }
+
+  loadAllRecords() {
+    this.records = [];
+    for (let patient of this.patients) {
+      for (let rec of patient.history) {
+        this.records.push({ ...rec, name: patient.name, id: patient.id });
+      }
+    }
+  }
+
+  get filteredRecords() {
+    if (!this.searchTerm) return this.records;
+    const term = this.searchTerm.toLowerCase();
+    return this.records.filter(r =>
+      r.name.toLowerCase().includes(term) ||
+      r.id.toLowerCase().includes(term)
+    );
+  }
 
   addRecord() {
-    if (this.newRecord.title && this.newRecord.type && this.newRecord.details) {
+    if (this.newRecord.title && this.newRecord.type && this.newRecord.details && this.newRecord.name && this.newRecord.id) {
       this.records.push({ ...this.newRecord });
-      this.newRecord = { title: '', type: '', details: '' };
+      this.newRecord = { title: '', type: '', details: '', name: '', id: '' };
     }
   }
 

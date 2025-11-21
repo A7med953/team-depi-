@@ -3,10 +3,24 @@
     <h2>Medical Records</h2>
   </header>
 
+  <!-- Search by Patient Name or ID -->
+  <div class="add-record">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search by Patient Name or ID..."
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
   <!-- Add New Record -->
   <div class="add-record">
     <h3>Add New Record</h3>
     <form (ngSubmit)="addRecord()">
+      <div class="form-group">
+        <input type="text" placeholder="Patient Name" [(ngModel)]="newRecord.name" name="name" required />
+        <input type="text" placeholder="Patient ID" [(ngModel)]="newRecord.id" name="id" required />
+      </div>
       <div class="form-group">
         <input type="text" placeholder="Record Title" [(ngModel)]="newRecord.title" name="title" required />
         <input type="text" placeholder="Type (Medication / Condition / Allergy)" [(ngModel)]="newRecord.type" name="type" required />
@@ -19,7 +33,7 @@
   </div>
 
   <!-- Records List -->
-  <div class="record-section" *ngFor="let record of records; let i = index">
+  <div class="record-section" *ngFor="let record of filteredRecords; let i = index">
     <div class="section-header">
       <i class="fa fa-folder-open"></i>
       <h3>{{ record.title }}</h3>
@@ -30,12 +44,16 @@
     </div>
 
     <div *ngIf="editedRecordIndex !== i; else editForm" class="card-body">
+      <p><strong>Patient Name:</strong> {{ record.name }}</p>
+      <p><strong>Patient ID:</strong> {{ record.id }}</p>
       <p><strong>Type:</strong> {{ record.type }}</p>
       <p><strong>Details:</strong> {{ record.details }}</p>
     </div>
 
     <ng-template #editForm>
       <div class="edit-form">
+        <input [(ngModel)]="editedRecord.name" placeholder="Patient Name" />
+        <input [(ngModel)]="editedRecord.id" placeholder="Patient ID" />
         <input [(ngModel)]="editedRecord.title" placeholder="Title" />
         <input [(ngModel)]="editedRecord.type" placeholder="Type" />
         <textarea [(ngModel)]="editedRecord.details" placeholder="Details"></textarea>
