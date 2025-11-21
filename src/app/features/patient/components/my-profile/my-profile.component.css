@@ -1,42 +1,34 @@
-section {
-    width: 100%;
+.my-profile .container .card .card-body img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 8px solid var(--color-primary);
 }
-.per-info, .test-info, .inv-info, .gen-info, .obs-info, .fam-info, .med-info {
-    width: 90%;
-    margin: 0;
-    margin-bottom: 10px;
+.my-profile .container .card .border-top h5 {
+  color: var(--color-primary);
 }
-h2 {
-    font-size: 1.5rem;
-    color: var(--color-text-main);
-    margin: 0 0 0.5rem 0;
-}
-.perinfo {
-    display: flex;
-    gap: 15px; 
-}
-.perinfo img {
-    width: 250px;
-    height: 250px;
-    border-radius: 8px;
-    object-fit: cover;
-}
-.container {
-    background-color: var(--color-bg-section);
-    border: 1px solid var(--color-border-card);
-    border-radius: 8px;
-    padding: 0.75rem 1.5rem;
-    transition: all 0.3s;
-    width: 100%;
-}
-.container:hover {
-    box-shadow: var(--shadow-medium);
-    transform: translateY(-4px);
+h4 {
+  color: var(--color-primary);
+  padding: 10px;
 }
 strong {
-    color: var(--color-primary);
+  color: var(--color-primary-dark);
 }
-p {
-    color: var(--color-text-main);
-    margin: 0.5rem 0;
+.fam-info .med-info, .gen-info, .inv-info, .test-info, .hospitalization {
+  margin: 20px 0;
+}
+.faminfo, .medinfo, .geninfo, .invinfo, .testinfo, .hospinfo {
+  padding: 10px 20px;    
+  border: 1px solid var(--color-border-card);
+  border-radius: 12px;
+  background-color: var(--color-bg-section);
+  box-shadow: var(--shadow-medium);
+}
+@media (max-width: 768px) {
+  .my-profile .container .card .card-body img {
+    width: 150px;
+    height: 150px;
+  }
 }

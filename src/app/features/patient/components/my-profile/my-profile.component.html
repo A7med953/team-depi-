@@ -1,69 +1,134 @@
 <section class="my-profile">
-    <div class="per-info">
-        <h2>Personal Information</h2>
-        <div class="container perinfo">
-            <img src="/Images/Patient-image.png" alt="Adult patient head-and-shoulders portrait looking directly at the camera with a neutral expression, clinic interior blurred in the background, text in image: Patient image, calm professional tone">
-            <div class="info">
-                <p><strong>Name:</strong> John Doe</p>
-                <p><strong>ID: </strong>1234-5678-9101-1121</p>
-                <p><strong>Date of Birth:</strong> January 1, 1990</p>
-                <p><strong>Gender:</strong> Male</p>
-                <p><strong>Contact Number:</strong> (123) 456-7890</p>
-                <p><strong>Email:</strong> JohnDeo&#64;example.com</p>
-                <p><strong>Address:</strong> 123 Main St, Anytown, USA</p>
+    <div class="container py-4">
+        <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body text-center per-info">
+                <img
+                    [src]="patient.image || '/Images/Patient-image.png'"
+                    alt="Patient Profile"
+                    class="profile-img mb-3"
+                />
+
+                <h3 class="fw-bold">{{ patient.name }}</h3>
+                <p class="text-muted mb-1">ID: {{ patient.id }}</p>
+                <p class="text-muted mb-2"><i class="fa-solid fa-cake-candles"></i> {{ patient.dob | date }}</p>
+
+                <div class="d-flex justify-content-center gap-3 mb-3 flex-wrap">
+                    <div><i class="fa-solid fa-venus-mars"></i> {{ patient.gender }}</div>
+                    <div><i class="fa-solid fa-phone"></i> {{ patient.contactNumber }}</div>
+                    <div><i class="fa-solid fa-envelope"></i> {{ patient.email }}</div>
+                </div>
+
+                <p class="text-secondary">{{ patient.address }}</p>
+
+                <div class="d-flex justify-content-center gap-3 mb-3">
+                    <button *ngIf="!isEditingPersonal" (click)="toggleEditPersonal()" class="btn btn-outline-primary">
+                        <i class="fa-solid fa-pen"></i> Edit
+                    </button>
+                    <div *ngIf="isEditingPersonal" class="btn-group">
+                        <button (click)="savePersonalInfo()" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                        <button (click)="cancelEditPersonal()" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="isEditingPersonal" class="p-4 bg-light border-top">
+                <h5 class="mb-3">Edit Personal Information</h5>
+                <form (ngSubmit)="savePersonalInfo()">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="editedPatient.name" name="name" title="Full name" placeholder="Full name" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Date of Birth</label>
+                            <input type="date" class="form-control" [(ngModel)]="editedPatient.dob" name="dob" title="Date of birth" placeholder="YYYY-MM-DD" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Gender</label>
+                            <select class="form-control" [(ngModel)]="editedPatient.gender" name="gender" title="Gender">
+                                <option value="">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Contact Number</label>
+                            <input type="tel" class="form-control" [(ngModel)]="editedPatient.contactNumber" name="contactNumber" title="Contact number" placeholder="(123) 456-7890" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Email</label>
+                            <input type="email" class="form-control" [(ngModel)]="editedPatient.email" name="email" title="Email address" placeholder="example@email.com" />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Address</label>
+                            <input type="text" class="form-control" [(ngModel)]="editedPatient.address" name="address" title="Address" placeholder="123 Main St, City, State" />
+                        </div>
+                    </div>
+
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-success px-4">Save Changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <div class="med-info">
-        <h2>Medical Information</h2>
-        <div class="container medinfo">
-            <p><strong>Blood Type:</strong> O+</p>
-            <p><strong>Allergies:</strong> None</p>
-            <p><strong>Current Medications:</strong> None</p>
-            <p><strong>Medical Conditions:</strong> None</p>
-        </div>
-    </div>
-    <div class="fam-info">
-        <h2>Family Medical History</h2>
-        <div class="container faminfo">
-            <p><strong>Father:</strong> Hypertension</p>
-            <p><strong>Mother:</strong> Diabetes</p>
-            <p><strong>Siblings:</strong> None</p>
-        </div>
-    </div>
-    <div class="obs-info">
-        <h2>Obstetric History</h2>
-        <div class="container obsinfo">
-            <p><strong>Number of Deliveries:</strong> 1</p>
-            <p><strong>Type of Delivery:</strong> Vaginal</p>
-            <p><strong>Complications:</strong> None</p>
-            <p><strong>Postpartum Issues:</strong> None</p>
-        </div>
-    </div>
-    <div class="gen-info">
-        <h2>General Health Information</h2>
-        <div class="container geninfo">
-            <p><strong>Height:</strong> 5'6"</p>
-            <p><strong>Weight:</strong> 150 lbs</p>
-            <p><strong>Smoking Status:</strong> Non-smoker</p>
-            <p><strong>Alcohol Consumption:</strong> Occasional</p>
-        </div>
-    </div>
-    <div class="inv-info">
-        <h2>Investigations</h2>
-        <div class="container invinfo">
-            <p><strong>Last Blood Test:</strong> January 2024 - Normal</p>
-            <p><strong>Imaging Studies:</strong> Ultrasound - Normal</p>
-            <p><strong>Other Tests:</strong> None</p>
-        </div>
-    </div>
-    <div class="test-info">
-        <h2>Test Results</h2>
-        <div class="container testinfo">
-            <p><strong>Blood Sugar:</strong> 90 mg/dL - Normal</p>
-            <p><strong>Cholesterol:</strong> 180 mg/dL - Normal</p>
-            <p><strong>Other Tests:</strong> None</p>
-        </div>
-    </div>
 
+    <div class="content-sections container py-3">
+        <div class="med-info mb-3 card border-0 rounded-3">
+            <h4>Medical Information</h4>
+            <div class="container medinfo card-body">
+                <p><strong>Blood Type:</strong> {{ patient.medicalInfo.bloodType }}</p>
+                <p><strong>Allergies:</strong> {{ patient.medicalInfo.allergies }}</p>
+                <p><strong>Current Medications:</strong> {{ patient.medicalInfo.currentMedications }}</p>
+                <p><strong>Medical Conditions:</strong> {{ patient.medicalInfo.medicalConditions }}</p>
+            </div>
+        </div>
+
+        <div class="fam-info mb-3 card border-0 rounded-3">
+            <h4>Family Medical History</h4>
+            <div class="container faminfo card-body">
+                <p><strong>Father:</strong> {{ patient.familyHistory.father }}</p>
+                <p><strong>Mother:</strong> {{ patient.familyHistory.mother }}</p>
+                <p><strong>Siblings:</strong> {{ patient.familyHistory.siblings }}</p>
+            </div>
+        </div>
+
+        <div class="gen-info mb-3 card border-0 rounded-3">
+            <h4>General Health Information</h4>
+            <div class="container geninfo card-body">
+                <p><strong>Height:</strong> {{ patient.generalHealth.height }}</p>
+                <p><strong>Weight:</strong> {{ patient.generalHealth.weight }}</p>
+                <p><strong>Smoking Status:</strong> {{ patient.generalHealth.smokingStatus }}</p>
+                <p><strong>Alcohol Consumption:</strong> {{ patient.generalHealth.alcoholConsumption }}</p>
+            </div>
+        </div>
+
+        <div class="inv-info mb-3 card border-0 rounded-3">
+            <h4>Investigations</h4>
+            <div class="container invinfo card-body">
+                <p><strong>Last Blood Test:</strong> {{ patient.investigations.lastBloodTest }}</p>
+                <p><strong>Imaging Studies:</strong> {{ patient.investigations.imagingStudies }}</p>
+                <p><strong>Other Tests:</strong> {{ patient.investigations.otherTests }}</p>
+            </div>
+        </div>
+
+        <div class="test-info mb-3 card border-0 rounded-3">
+            <h4>Test Results</h4>
+            <div class="container testinfo card-body">
+                <p><strong>Blood Sugar:</strong> {{ patient.testResults.bloodSugar }}</p>
+                <p><strong>Cholesterol:</strong> {{ patient.testResults.cholesterol }}</p>
+                <p><strong>Other Tests:</strong> {{ patient.testResults.otherTests }}</p>
+            </div>
+        </div>
+
+        <div class="hospitalization mb-3 card border-0 rounded-3">
+            <h4>Hospitalization History</h4>
+            <div class="container hospinfo card-body">
+                <p><strong>Last Hospitalization:</strong> {{ patient.hospitalization?.lastHospitalization }}</p>
+                <p><strong>Reason:</strong> {{ patient.hospitalization?.reason }}</p>
+                <p><strong>Treatment:</strong> {{ patient.hospitalization?.treatment }}</p>
+            </div>
+        </div>
+    </div>
 </section>
