@@ -151,22 +151,21 @@ form {
     border-color: #00b4cc;
 }
 
-/* ✅ خلفية الدائرة على اليمين */
-.container.reverse::before {
-    content: "";
-    position: absolute;
-    height: 1550px;
-    width: 2000px;
-    top: -10%;
-    left: 52%;
-    transform: translateY(-50%);
-    background-image: linear-gradient(45deg, #00b4cc 0%, #04befe 100%);
-    border-radius: 50%;
-    z-index: 6;
-    
-}
+    .container.reverse::before {
+        content: "";
+        position: absolute;
+        width: 800px;           
+        height: 700px;
+        top: 0;
+        right: -200px;        
+        background-image: linear-gradient(45deg, #00b4cc 0%, #04befe 100%);
+        border-bottom-left-radius: 1000px;
+        z-index: 6;
 
-/* ✅ الصورة على اليمين */
+    }
+
+
+
 .panels-container {
     position: absolute;
     height: 100%;
@@ -245,14 +244,14 @@ form {
         font-size: 1.2rem;
     }
 
-    .container.reverse::before {
-        width: 1500px;
-        height: 1500px;
-        left: 50%;
-        bottom: 68%;
-        top: initial;
-        transform: translateX(-50%);
-    }
+  .container.reverse::before {
+    width: 390px;
+    height: 320px;
+    left: 50%;
+    top: 0;  
+    transform: translateX(-50%) translateY(-50%); 
+    border-radius: 30%;  
+}
 }
 
 @media (max-width: 570px) {
@@ -277,3 +276,6 @@ form {
         left: 50%;
     }
 }
+
+
+
