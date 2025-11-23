@@ -27,7 +27,12 @@ import { DoctorMedicalRecordsComponent } from "./features/doctor/components/doct
 export const routes: Routes = [
 
   {
-    path: '',
+    path:'',
+    redirectTo:'land',
+    pathMatch:'full'
+  },
+  {
+    path: 'land',
     component: LandingPageComponent,
   },
 

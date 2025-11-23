@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 interface InventoryItem {
@@ -28,34 +28,33 @@ export class InventoryComponent implements OnInit {
   searchTerm = '';
   lastUpdatedTime = 'Just now';
 
-  // ✅ المتغيرات الجديدة للعرض في الـ header
+  // متغيرات للـ header
   lowStockCount: number = 0;
   expiringCount: number = 0;
 
-  constructor(
-    private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    this.loadInventory();
-    setInterval(() => this.updateLastUpdatedTime(), 5000);
-  }
-
-  /* ---------- تحميل المخزون ---------- */
-  loadInventory() {
-    if (isPlatformBrowser(this.platformId)) {
-      const stored = localStorage.getItem('inventory');
-      this.inventory = stored ? JSON.parse(stored) : this.defaultInventory();
-      this.updateAlerts();
-      this.updateLastUpdatedTime();
+    if (typeof window !== 'undefined') {
+      this.loadInventory();
+      setInterval(() => this.updateLastUpdatedTime(), 5000);
     } else {
-      console.warn('localStorage is not available in this environment.');
-      this.inventory = this.defaultInventory();
+      this.inventory = this.defaultInventory(); // fallback
+      this.updateAlerts();
     }
   }
 
-  /* ---------- بيانات افتراضية ---------- */
+  loadInventory() {
+    if (typeof localStorage !== 'undefined') {
+      const stored = localStorage.getItem('inventory');
+      this.inventory = stored ? JSON.parse(stored) : this.defaultInventory();
+    } else {
+      this.inventory = this.defaultInventory();
+    }
+    this.updateAlerts();
+    this.updateLastUpdatedTime();
+  }
+
   defaultInventory(): InventoryItem[] {
     const defaultData: InventoryItem[] = [
       {
@@ -90,14 +89,13 @@ export class InventoryComponent implements OnInit {
       }
     ];
 
-    if (isPlatformBrowser(this.platformId)) {
+    if (typeof localStorage !== 'undefined') {
       localStorage.setItem('inventory', JSON.stringify(defaultData));
     }
 
     return defaultData;
   }
 
-  /* ---------- تحديث التنبيهات ---------- */
   updateAlerts() {
     const today = new Date();
     const threeMonths = new Date(today);
@@ -106,22 +104,18 @@ export class InventoryComponent implements OnInit {
     this.lowStockItems = this.inventory.filter(item => item.stock <= item.minStock);
     this.expiringItems = this.inventory.filter(item => new Date(item.expiry) <= threeMonths);
 
-    // ✅ تحديث القيم المعروضة في الـ header
     this.lowStockCount = this.lowStockItems.length;
     this.expiringCount = this.expiringItems.length;
   }
 
-  /* ---------- تحديث العرض ---------- */
   refreshInventory() {
     this.loadInventory();
   }
 
-  /* ---------- تحديث الوقت ---------- */
   updateLastUpdatedTime() {
     this.lastUpdatedTime = new Date().toLocaleTimeString();
   }
 
-  /* ---------- صلاحية الدواء ---------- */
   isExpiringSoon(expiry: string): boolean {
     const oneMonth = new Date();
     oneMonth.setMonth(oneMonth.getMonth() + 1);
@@ -133,25 +127,15 @@ export class InventoryComponent implements OnInit {
     return '';
   }
 
-  /* ---------- تنسيق التاريخ ---------- */
   formatDate(date: string): string {
     const d = new Date(date);
-    return isNaN(d.getTime())
-      ? date
-      : `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+    return isNaN(d.getTime()) ? date : `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
   }
 
-  /* ---------- الانتقال إلى صفحة تعديل المخزون ---------- */
   goToUpdateStock(name: string) {
     this.router.navigate(['/update-stock'], { queryParams: { medication: name } });
   }
 
-  /* ---------- عرض تفاصيل العنصر ---------- */
-  viewItem(name: string) {
-    alert(`Viewing details for: ${name}`);
-  }
-
-  /* ---------- الفلترة ---------- */
   filteredInventory(): InventoryItem[] {
     const term = this.searchTerm.toLowerCase();
     return this.inventory.filter(

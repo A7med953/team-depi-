@@ -1,7 +1,7 @@
 <div class="dashboard-container">
   <header class="dashboard-header">
     <h1>Update Stock</h1>
-    <a routerLink="/pharmacy/inventory" class="back-btn">
+    <a routerLink="/inventory" class="back-btn">
   <i class="fas fa-arrow-left"></i> Back to Inventory
 </a>
   </header>
@@ -37,7 +37,13 @@
     <form (ngSubmit)="updateStock()" #updateForm="ngForm">
       <div class="form-group">
         <label for="medicationSelect">Select Medication</label>
-        <select id="medicationSelect" required [(ngModel)]="selectedMedication" name="medication">
+       <select
+  id="medicationSelect"
+  required
+  [(ngModel)]="selectedMedication"
+  name="medication"
+  (change)="setMedicationDetails()">
+
           <option value="">Choose a medication...</option>
           <option *ngFor="let med of medications" [value]="med.name">{{ med.name }}</option>
         </select>

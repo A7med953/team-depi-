@@ -1,55 +1,93 @@
-<div class="profile-container">
-  <div class="profile-content">
-    <div class="user-info">
-      <div
-        class="profile-avatar"
-        [style.backgroundImage]="'url(' + user?.profile_image + ')'"
-      ></div>
-      <h3>{{ user?.name }}</h3>
-      <p>{{ user?.email }}</p>
+<div class="container py-4">
+  <div class="card shadow-sm border-0 rounded-3">
+    <div class="card-body text-center">
+      <img
+        [src]="pharm.image"
+        alt="Doctor Profile"
+        class="profile-img mb-3"
+      />
+
+      <h3 class="fw-bold ">{{ pharm.name }}</h3>
+      <p class="text-muted mb-1">{{ pharm.specialty }}</p>
+      <p class="text-muted mb-3"><i class="fa-solid fa-location-dot"></i> {{ pharm.location }}</p>
+
+      <div class="d-flex justify-content-center gap-3 mb-3 flex-wrap">
+        <div><i class="fa-solid fa-envelope"></i> {{ pharm.email }}</div>
+        <div><i class="fa-solid fa-phone"></i> {{ pharm.phone }}</div>
+        <div><i class="fa-solid fa-briefcase"></i> {{ pharm.experience }}</div>
+      </div>
+
+      <p class="text-secondary">{{ pharm.bio }}</p>
+
+      <hr />
+
+      <h5 class="fw-semibold">Education</h5>
+      <p class="text-muted mb-3">{{ pharm.education }}</p>
+
+      <button class="btn " (click)="toggleEdit()">
+        <i class="fa-solid" [ngClass]="isEditing ? 'fa-xmark' : 'fa-pen'"></i>
+        {{ isEditing ? 'Cancel Edit' : 'Edit Profile' }}
+      </button>
     </div>
 
-    <section id="info" class="profile-section">
-      <h2><i class="fas fa-id-card"></i> Personal Information</h2>
 
-      <div class="data-item">
-        <strong>Full Name:</strong> <span>{{ user?.name }}</span>
-      </div>
-      <div class="data-item">
-        <strong>Email:</strong> <span>{{ user?.email }}</span>
-      </div>
-      <div class="data-item">
-        <strong>Phone Number:</strong> <span>{{ user?.phone }}</span>
-      </div>
-      <div class="data-item">
-        <strong>Date of Birth:</strong> <span>{{ user?.date_of_birth }}</span>
-      </div>
-      <div class="data-item">
-        <strong>Medical Notes:</strong> <span>{{ user?.medical_notes }}</span>
-      </div>
+    <div *ngIf="isEditing" class="p-4 bg-light border-top">
+      <h5 class="mb-3 text-primary">Edit pharmacy Information</h5>
 
-      <button class="edit-btn">
-        <i class="fas fa-edit"></i> Edit Profile
-      </button>
-    </section>
+      <form (ngSubmit)="saveChanges()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="editedpharm.name" name="name" />
+          </div>
 
-    <div class="section-separator"></div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Specialty</label>
+            <input type="text" class="form-control" [(ngModel)]="editedpharm.specialty" name="specialty" />
+          </div>
 
-    <section id="settings" class="profile-section">
-      <h2><i class="fas fa-cog"></i> Account Settings</h2>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Email</label>
+            <input type="email" class="form-control" [(ngModel)]="editedpharm.email" name="email" />
+          </div>
 
-      <div class="settings-option">
-        <p>Change Password</p>
-        <button class="settings-btn">Change</button>
-      </div>
-      <div class="settings-option">
-        <p>Enable Notifications</p>
-        <i class="fas fa-toggle-on toggle-icon"></i>
-      </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Phone</label>
+            <input type="text" class="form-control" [(ngModel)]="editedpharm.phone" name="phone" />
+          </div>
 
-      <button class="logout-btn">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </button>
-    </section>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Location</label>
+            <input type="text" class="form-control" [(ngModel)]="editedpharm.location" name="location" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Experience</label>
+            <input type="text" class="form-control" [(ngModel)]="editedpharm.experience" name="experience" />
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold">Education</label>
+            <input type="text" class="form-control" [(ngModel)]="editedpharm.education" name="education" />
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold">Bio</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="editedpharm.bio" name="bio"></textarea>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label fw-semibold">Profile Image URL</label>
+            <input type="text" class="form-control" [(ngModel)]="editedpharm.image" name="image" />
+          </div>
+        </div>
+
+        <div class="text-end mt-4">
+          <button type="submit" class="btn btn-success px-4">
+            <i class="fa-solid fa-floppy-disk"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

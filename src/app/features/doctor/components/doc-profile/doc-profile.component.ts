@@ -21,7 +21,7 @@ export class DocProfileComponent {
     experience: '5 years',
     education: 'Bachelor of Medicine, Mansoura University',
     bio: 'Passionate about providing quality cardiac care and helping patients live healthier lives.',
-    image: '/download.jpg'
+    image: 'Images/download.jpg'
   };
 
   editedDoctor = { ...this.doctor };
