@@ -122,7 +122,7 @@ export class MyProfileComponent implements OnInit {
 
   loadPatientData(): void {
     this.patient = {
-      image: '/Images/Patient-image.png',
+      image: 'Images/Patient-image.png',
       name: 'John Doe',
       id: '1234-5678-9101-1121',
       dob: new Date('1990-01-01'),

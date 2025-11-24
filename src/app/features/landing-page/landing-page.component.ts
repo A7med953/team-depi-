@@ -39,7 +39,7 @@ export class LandingPageComponent implements AfterViewInit {
     const closeVideoBtn = document.querySelector('.close-video') as HTMLElement;
     const demoVideoPlayer = document.getElementById('demoVideo') as HTMLVideoElement;
 
-    const videoURL = 'assets/my-local-video.mp4';
+    const videoURL = 'https://www.canva.com/design/DAG1tN10uDU/yNUHtYyDOWc-i7FbKlu2zQ/watch';
 
     watchDemoBtn?.addEventListener('click', (e) => {
       e.preventDefault();

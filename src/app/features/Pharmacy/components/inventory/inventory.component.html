@@ -3,12 +3,10 @@
     <div class="title-and-alerts">
       <h1>Inventory Management</h1>
       <p class="header-alerts-text">
-        <span class="low-stock-count">{{ lowStockCount }}</span>
-        •
+        <span class="low-stock-count">{{ lowStockCount }}</span> •
         <span class="expiring-count">{{ expiringCount }}</span>
       </p>
     </div>
-
     <div class="header-buttons">
       <button class="add-item-btn refresh-btn" (click)="refreshInventory()">
         <i class="fas fa-sync-alt"></i> Refresh
@@ -62,33 +60,20 @@
   </section>
 
   <main class="inventory-list-container">
-    <div
-      *ngFor="let item of filteredInventory()"
-      class="inventory-card"
-      [attr.data-name]="item.name"
-      [attr.data-category]="item.category"
-      [attr.data-supplier]="item.supplier"
-    >
+    <div *ngFor="let item of filteredInventory()" class="inventory-card">
       <div class="card-header-content">
         <div class="medication-details">
           <i class="fas fa-pills medication-icon"></i>
           <div>
             <span class="medication-name">{{ item.name }}</span>
-            <span class="medication-sub-details">
-              {{ item.category }} | Batch: {{ item.batch }}
-            </span>
+            <span class="medication-sub-details">{{ item.category }} | Batch: {{ item.batch }}</span>
           </div>
         </div>
-
         <div class="stock-tags">
-          <span
-            class="tag"
-            [ngClass]="item.stock <= item.minStock ? 'low-stock-tag' : 'normal-stock'"
-            >{{ item.stock <= item.minStock ? 'low stock' : 'normal stock' }}</span
-          >
-          <span *ngIf="isExpiringSoon(item.expiry)" class="tag expiring-soon-tag">
-            Expiring Soon
+          <span class="tag" [ngClass]="item.stock <= item.minStock ? 'low-stock-tag' : 'normal-stock'">
+            {{ item.stock <= item.minStock ? 'low stock' : 'normal stock' }}
           </span>
+          <span *ngIf="isExpiringSoon(item.expiry)" class="tag expiring-soon-tag">Expiring Soon</span>
         </div>
       </div>
 
@@ -96,9 +81,7 @@
         <div class="detail-group">
           <p class="detail-item">
             <span class="label">Current Stock:</span>
-            <span class="value" [ngClass]="{ 'low-stock-value': item.stock <= item.minStock }">
-              {{ item.stock }}
-            </span>
+            <span class="value" [ngClass]="{ 'low-stock-value': item.stock <= item.minStock }">{{ item.stock }}</span>
           </p>
           <p class="detail-item">
             <span class="label">Unit Price:</span>
@@ -106,30 +89,18 @@
           </p>
           <p class="detail-item">
             <span class="label">Expiry Date:</span>
-            <span class="value" [ngClass]="getExpiryClass(item.expiry)">
-              {{ formatDate(item.expiry) }}
-            </span>
+            <span class="value" [ngClass]="getExpiryClass(item.expiry)">{{ formatDate(item.expiry) }}</span>
           </p>
         </div>
-
         <div class="detail-group">
-          <p class="detail-item">
-            <span class="label">Min Stock:</span>
-            <span class="value">{{ item.minStock }}</span>
-          </p>
-          <p class="detail-item">
-            <span class="label">Supplier:</span>
-            <span class="value">{{ item.supplier }}</span>
-          </p>
+          <p class="detail-item"><span class="label">Min Stock:</span> <span class="value">{{ item.minStock }}</span></p>
+          <p class="detail-item"><span class="label">Supplier:</span> <span class="value">{{ item.supplier }}</span></p>
         </div>
       </div>
 
       <div class="card-actions">
-        <button class="action-btn update-btn" routerLink="/pharmacy/update-stock">
+        <button class="action-btn update-btn" [routerLink]="['/pharmacy/update-stock']" [queryParams]="{ medication: item.name }">
           Update Stock
-        </button>
-        <button class="action-btn view-btn" (click)="viewItem(item.name)">
-          View Details
         </button>
       </div>
     </div>
