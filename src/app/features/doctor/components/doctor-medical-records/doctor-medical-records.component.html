@@ -3,15 +3,7 @@
     <h2>Medical Records</h2>
   </header>
 
-  <!-- Search by Patient Name or ID -->
-  <div class="add-record">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Search by Patient Name or ID..."
-      [(ngModel)]="searchTerm"
-    />
-  </div>
+  
 
   <!-- Add New Record -->
   <div class="add-record">
@@ -30,6 +22,16 @@
       </div>
       <button type="submit" class="btn-primary">Add Record</button>
     </form>
+  </div>
+
+  <!-- Search by Patient Name or ID -->
+  <div class="add-record">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search by Patient Name or ID..."
+      [(ngModel)]="searchTerm"
+    />
   </div>
 
   <!-- Records List -->
