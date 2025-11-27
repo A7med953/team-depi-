@@ -1,0 +1,39 @@
+{
+  "name": "smart-health-portal-api",
+  "version": "1.0.0",
+  "description": "JSON Server database for Smart Health Portal - Healthcare Management System",
+  "main": "db.json",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3000",
+    "start:auth": "json-server --watch db.json --port 3000 --middlewares ./auth.js",
+    "start:host": "json-server --watch db.json --port 3000 --host 0.0.0.0",
+    "dev": "json-server --watch db.json --port 3000 --delay 500"
+  },
+  "keywords": [
+    "healthcare",
+    "medical",
+    "hospital",
+    "pharmacy",
+    "doctor",
+    "patient",
+    "appointment",
+    "prescription",
+    "json-server",
+    "rest-api",
+    "mock-api"
+  ],
+  "author": "Smart Health Portal Team",
+  "license": "MIT",
+  "dependencies": {
+    "json-server": "^0.17.4"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/A7med953/team-depi-"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
