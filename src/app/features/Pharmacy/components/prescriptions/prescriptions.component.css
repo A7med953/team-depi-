@@ -59,16 +59,16 @@ h1 {
 }
 .filter-btn:hover {
   background-color: #f0f9fb;
-  color: #0086a1;
+  color: var(--color-primary);
 }
 .filter-btn.active {
-  background-color: #0086a1;
+  background-color:var(--color-primary);
   color: #fff;
-  border-color: #0086a1;
+  border-color: var(--color-primary);
 }
 .filter-btn.active.all {
-  background-color: #0086a1;
-  border-color: #0086a1;
+  background-color: var(--color-primary);
+  border-color:var(--color-primary);
 }
 
 
@@ -99,14 +99,14 @@ h1 {
 .medicine-name {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #006e83;
+  color: var(--color-primary);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 5px;
 }
 .medicine-name i {
-  color: #00b4cc;
+  color: var(--color-primary-light);
   margin-right: 10px;
   font-size: 1.2em;
 }
@@ -192,13 +192,13 @@ h1 {
 .action-btn.dispense {
   background-color: #28a745;
 }
-.action-btn.dispense:hover {
+.action-btn.dispense:not(:disabled):hover {
   background-color: #218838;
 }
 .action-btn.cancel {
   background-color: #dc3545;
 }
-.action-btn.cancel:hover {
+.action-btn.cancel:not(:disabled):hover {
   background-color: #c82333;
 }
 .action-btn:disabled {

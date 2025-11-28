@@ -1,5 +1,6 @@
 .reports-container {
   width: 100%;
+  padding: 0;
 }
 
 .reports-header {
@@ -52,6 +53,7 @@
 
 .stat-content {
   flex-grow: 1;
+  min-width: 0;
 }
 
 .stat-label {
@@ -66,11 +68,13 @@
   font-weight: 700;
   color: var(--color-text-main);
   margin: 0 0 5px 0;
+  word-break: break-word;
 }
 
 .stat-change {
   font-size: 0.8rem;
   font-weight: 500;
+  display: block;
 }
 
 .stat-change.positive {
@@ -84,9 +88,11 @@
 .stat-change.neutral {
   color: var(--color-text-muted);
 }
+
+/* Charts Section - Fully Responsive */
 .charts-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
   gap: 25px;
   margin-bottom: 30px;
 }
@@ -97,32 +103,50 @@
   border-radius: 12px;
   padding: 20px;
   box-shadow: var(--shadow-light);
-   height: 400px;
-}
-.chart-card canvas {
-  flex-grow: 1; 
-  max-height: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .chart-card h3 {
-  margin-bottom: 15px;
+  margin: 0 0 15px 0;
   font-size: 1.1rem;
   color: var(--color-text-main);
   font-weight: 600;
+  flex-shrink: 0;
 }
 
+.chart-card canvas {
+  flex-grow: 1;
+  max-height: calc(100% - 50px);
+  width: 100% !important;
+  height: auto !important;
+  min-height: 250px;
+}
 
+/* Activity Section */
 .activity-section {
   background-color: var(--color-bg-card);
   border: 1px solid var(--color-border-card);
   border-radius: 12px;
   padding: 20px;
   box-shadow: var(--shadow-light);
+  overflow-x: auto;
+}
+
+.section-header h2 {
+  margin: 0 0 20px 0;
+  font-size: 1.3rem;
+  color: var(--color-text-main);
+  font-weight: 600;
 }
 
 .activity-table {
   display: flex;
   flex-direction: column;
+  min-width: 600px;
 }
 
 .table-header {
@@ -155,8 +179,10 @@
 
 .table-cell {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   font-size: 0.9rem;
+  min-width: 0;
 }
 
 .date-text {
@@ -174,6 +200,7 @@
 
 .activity-text {
   color: var(--color-text-secondary);
+  word-break: break-word;
 }
 
 .type-badge {
@@ -182,6 +209,8 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: capitalize;
+  display: inline-block;
+  width: fit-content;
 }
 
 .type-badge.sales,
@@ -203,6 +232,8 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: capitalize;
+  display: inline-block;
+  width: fit-content;
 }
 
 .status-badge.completed {
@@ -220,81 +251,236 @@
   color: var(--color-text-muted);
 }
 
+/* Tablet Responsive - 992px and below */
 @media (max-width: 992px) {
   .stats-section {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
   }
 
-  .reports-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  .charts-section {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    gap: 20px;
   }
 
-  .table-header,
-  .table-row {
-    grid-template-columns: 1.5fr 2fr 1fr 1fr;
-    font-size: 0.85rem;
+  .chart-card {
+    height: 350px;
+  }
+
+  .chart-card canvas {
+    min-height: 220px;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+  }
+
+  .stat-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
   }
 }
 
+/* Mobile Landscape - 768px and below */
 @media (max-width: 768px) {
   .reports-header h1 {
     font-size: 1.75rem;
   }
 
   .stats-section {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 15px;
+  }
+
+  .charts-section {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
-  .filter-section {
-    flex-direction: column;
-    align-items: stretch;
+  .chart-card {
+    height: 320px;
+    padding: 15px;
   }
 
-  .filter-group {
-    min-width: 100%;
+  .chart-card canvas {
+    min-height: 200px;
   }
 
-  .reports-grid {
-    grid-template-columns: 1fr;
+  .activity-section {
+    padding: 15px;
+  }
+
+  .activity-table {
+    min-width: 550px;
   }
 
   .table-header,
   .table-row {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .table-header {
-    display: none;
-  }
-
-  .table-cell {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px 0;
+    font-size: 0.85rem;
+    gap: 10px;
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile Portrait - 576px and below */
+@media (max-width: 576px) {
   .reports-header h1 {
     font-size: 1.5rem;
+  }
+
+  .stats-section {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 15px;
   }
 
   .stat-value {
     font-size: 1.5rem;
   }
 
-  .report-card {
-    padding: 15px;
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
   }
 
-  .report-actions {
-    flex-direction: column;
+  .charts-section {
+    gap: 15px;
   }
 
-  .view-btn,
-  .download-btn {
-    width: 100%;
+  .chart-card {
+    height: 280px;
+    padding: 12px;
+  }
+
+  .chart-card h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .chart-card canvas {
+    min-height: 180px;
+  }
+
+  .activity-section {
+    padding: 12px;
+  }
+
+  .section-header h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .activity-table {
+    min-width: 500px;
+  }
+
+  .table-header,
+  .table-row {
+    font-size: 0.8rem;
+    gap: 8px;
+    padding: 10px 0;
+  }
+
+  .type-badge,
+  .status-badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+}
+
+/* Extra Small Mobile - 480px and below */
+@media (max-width: 480px) {
+  .reports-container {
+    padding: 0;
+  }
+
+  .reports-header {
+    margin-bottom: 20px;
+  }
+
+  .reports-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .stat-card {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .stat-change {
+    font-size: 0.75rem;
+  }
+
+  .chart-card {
+    height: 260px;
+    padding: 10px;
+  }
+
+  .chart-card h3 {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .chart-card canvas {
+    min-height: 160px;
+  }
+
+  .activity-section {
+    padding: 10px;
+  }
+
+  .activity-table {
+    min-width: 450px;
+  }
+}
+
+/* Handle very small screens - 360px and below */
+@media (max-width: 360px) {
+  .reports-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.3rem;
+  }
+
+  .stat-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .chart-card {
+    height: 240px;
+  }
+
+  .chart-card canvas {
+    min-height: 140px;
+  }
+
+  .activity-table {
+    min-width: 400px;
+  }
+
+  .table-header,
+  .table-row {
+    font-size: 0.75rem;
   }
 }
 

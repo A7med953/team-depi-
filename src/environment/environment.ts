@@ -1,4 +1,4 @@
-export const environments = 
+export const environment = 
 {
-    baseUrl: 'https://ecommerce.routemisr.com/api/v1/',
+    apiUrl: 'http://localhost:3000',
 }

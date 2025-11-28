@@ -80,6 +80,7 @@ export class ReportsComponent {
     Chart.register(...registerables);
   setTimeout(() => {
 
+   // Sales Trend Chart with Animation
    new Chart('salesTrend', {
   type: 'line',
   data: {
@@ -88,21 +89,66 @@ export class ReportsComponent {
       label: 'Sales ($)',
       data: [600, 720, 800, 950, 880, 920, 970, 890, 760, 820],
       borderColor: '#007bff',
-      fill: false,
-      tension: 0.3
+      backgroundColor: 'rgba(0, 123, 255, 0.1)',
+      fill: true,
+      tension: 0.4,
+      borderWidth: 3,
+      pointRadius: 5,
+      pointHoverRadius: 8,
+      pointBackgroundColor: '#007bff',
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: '#007bff',
+      pointHoverBorderWidth: 3
     }]
   },
   options: {
-    plugins: { 
-      legend: { display: false } 
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+      mode: 'index',
+      intersect: false
     },
-
+    plugins: { 
+      legend: { display: false },
+      tooltip: {
+        enabled: true,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        padding: 12,
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        displayColors: false
+      }
+    },
     scales: { 
-      y: { beginAtZero: true } 
+      y: { 
+        beginAtZero: true,
+        grid: {
+          color: 'rgba(0, 0, 0, 0.05)'
+        }
+      },
+      x: {
+        grid: {
+          display: false
+        }
+      }
+    },
+    animation: {
+      duration: 2000,
+      easing: 'easeInOutQuart',
+      delay: (context) => {
+        let delay = 0;
+        if (context.type === 'data' && context.mode === 'default') {
+          delay = context.dataIndex * 100;
+        }
+        return delay;
+      }
     }
   }
 });
 
+ // Top Medications Chart with Animation
  new Chart('topMedications', {
   type: 'bar',
   data: {
@@ -110,33 +156,110 @@ export class ReportsComponent {
     datasets: [{
       label: 'Units Sold',
       data: [450, 420, 390, 360, 340, 310],
-      backgroundColor: '#00a8e8'
+      backgroundColor: [
+        'rgba(0, 168, 232, 0.8)',
+        'rgba(0, 168, 232, 0.75)',
+        'rgba(0, 168, 232, 0.7)',
+        'rgba(0, 168, 232, 0.65)',
+        'rgba(0, 168, 232, 0.6)',
+        'rgba(0, 168, 232, 0.55)'
+      ],
+      borderColor: '#00a8e8',
+      borderWidth: 2,
+      borderRadius: 8,
+      borderSkipped: false
     }]
   },
   options: {
      responsive: true,
+     maintainAspectRatio: false,
     indexAxis: 'y',
     scales: {
       x: {
+        grid: {
+          color: 'rgba(0, 0, 0, 0.05)'
+        }
+      },
+      y: {
+        grid: {
+          display: false
+        }
       }
     },
-
     plugins: {
-      legend: { display: false }
+      legend: { display: false },
+      tooltip: {
+        enabled: true,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        padding: 12,
+        displayColors: false
+      }
+    },
+    animation: {
+      duration: 1500,
+      easing: 'easeInOutQuart',
+      delay: (context) => {
+        let delay = 0;
+        if (context.type === 'data' && context.mode === 'default') {
+          delay = context.dataIndex * 150;
+        }
+        return delay;
+      }
     }
   }
 });
+
+    // Sales Category Pie Chart with Animation
     new Chart('salesCategory', {
       type: 'pie',
       data: {
         labels: ['Sales', 'Prescription', 'Inventory', 'Financial'],
         datasets: [{
           data: [31, 27, 22, 20],
-          backgroundColor: ['#007bff', '#00bfa6', '#34d399', '#fbbf24']
+          backgroundColor: [
+            'rgba(0, 123, 255, 0.9)',
+            'rgba(0, 191, 166, 0.9)',
+            'rgba(52, 211, 153, 0.9)',
+            'rgba(251, 191, 36, 0.9)'
+          ],
+          borderColor: '#fff',
+          borderWidth: 3,
+          hoverOffset: 15,
+          hoverBorderWidth: 4
         }]
       },
-      options: {plugins: { legend: { position:'right' } } }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { 
+          legend: { 
+            position: 'right',
+            labels: {
+              padding: 15,
+              font: {
+                size: 12
+              },
+              usePointStyle: true,
+              pointStyle: 'circle'
+            }
+          },
+          tooltip: {
+            enabled: true,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            padding: 12,
+            displayColors: true
+          }
+        },
+        animation: {
+          animateRotate: true,
+          animateScale: true,
+          duration: 2000,
+          easing: 'easeInOutQuart'
+        }
+      }
     });
+
+    // Inventory Trend Chart with Animation
     new Chart('inventoryTrend', {
   type: 'line',
   data: {
@@ -145,16 +268,59 @@ export class ReportsComponent {
       label: 'Medicine Trend',
       data: [150000, 156000, 155000, 158000, 157000, 156500, 157800],
       borderColor: '#00bfa6',
-      backgroundColor: 'rgba(0,191,166,0.1)',
+      backgroundColor: 'rgba(0,191,166,0.2)',
       fill: true,
-      tension: 0.3
+      tension: 0.4,
+      borderWidth: 3,
+      pointRadius: 6,
+      pointHoverRadius: 9,
+      pointBackgroundColor: '#00bfa6',
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: '#00bfa6',
+      pointHoverBorderWidth: 3
     }]
   },
   options: { 
      responsive: true,
+     maintainAspectRatio: false,
+     interaction: {
+       mode: 'index',
+       intersect: false
+     },
     plugins: { 
-      legend: { display: false } 
-    } 
+      legend: { display: false },
+      tooltip: {
+        enabled: true,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        padding: 12,
+        displayColors: false
+      }
+    },
+    scales: {
+      y: {
+        grid: {
+          color: 'rgba(0, 0, 0, 0.05)'
+        }
+      },
+      x: {
+        grid: {
+          display: false
+        }
+      }
+    },
+    animation: {
+      duration: 2000,
+      easing: 'easeInOutQuart',
+      delay: (context) => {
+        let delay = 0;
+        if (context.type === 'data' && context.mode === 'default') {
+          delay = context.dataIndex * 120;
+        }
+        return delay;
+      }
+    }
   }
 });
 
