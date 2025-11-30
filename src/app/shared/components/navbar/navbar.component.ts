@@ -55,4 +55,11 @@ export class NavbarComponent implements OnInit {
       if (e.key === 'Escape') closeSidebar();
     });
   }
+  scrollTo(id: string) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 }

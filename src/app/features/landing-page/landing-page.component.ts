@@ -24,7 +24,6 @@ export class LandingPageComponent implements AfterViewInit {
     // ---------- HERO SLIDER ----------
     const slides = document.querySelectorAll('.hero-slide');
     let current = 0;
-
     if (slides.length) {
       slides[current].classList.add('active');
       setInterval(() => {
@@ -33,34 +32,29 @@ export class LandingPageComponent implements AfterViewInit {
         slides[current].classList.add('active');
       }, 3000);
     }
- // ---- VIDEO MODAL FUNCTIONALITY ----
+
+    // ---- VIDEO MODAL FUNCTIONALITY ----
     const watchDemoBtn = document.querySelector('.btn-outline') as HTMLElement;
     const videoModal = document.getElementById('videoModal') as HTMLElement;
     const closeVideoBtn = document.querySelector('.close-video') as HTMLElement;
-    const demoVideoPlayer = document.getElementById('demoVideo') as HTMLVideoElement;
+    const demoVideoPlayer = document.getElementById('demoVideo') as HTMLIFrameElement;
 
-    const videoURL = 'https://www.canva.com/design/DAG1tN10uDU/yNUHtYyDOWc-i7FbKlu2zQ/watch';
+
+    const videoURL = 'https://www.youtube.com/embed/1Bpj38bxJ60';
 
     watchDemoBtn?.addEventListener('click', (e) => {
       e.preventDefault();
-      videoModal?.classList.add('active');
-
-      if (demoVideoPlayer) {
-        demoVideoPlayer.src = videoURL;
-        demoVideoPlayer.load();
-        demoVideoPlayer.play();
-      }
+      if (videoModal) videoModal.style.display = 'flex';
+      if (demoVideoPlayer) demoVideoPlayer.src = videoURL + '?autoplay=1';
     });
 
     const closeAndResetVideo = () => {
-      videoModal?.classList.remove('active');
-      if (demoVideoPlayer) {
-        demoVideoPlayer.pause();
-        demoVideoPlayer.currentTime = 0;
-      }
+      if (videoModal) videoModal.style.display = 'none';
+      if (demoVideoPlayer) demoVideoPlayer.src = ''; 
     };
 
     closeVideoBtn?.addEventListener('click', closeAndResetVideo);
+
     videoModal?.addEventListener('click', (e) => {
       if (e.target === videoModal) closeAndResetVideo();
     });
