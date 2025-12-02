@@ -2,19 +2,32 @@
 
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h4 fw-bold text-dark">Today's Appointments</h1>
-    <button class="calebtn btn btn-primary" (click)="openCalendar()">
+    <button class="calebtn btn text-white" (click)="openCalendar()">
       <i class="fa-regular fa-calendar-days me-1"></i>
       View Calendar
     </button>
   </div>
-
-  <ng-container *ngIf="appointments.length > 0; else noAppointments">
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-6">
+      <div class="search-container position-relative">
+        <i class="fas fa-search search-icon position-absolute top-50 start-0 translate-middle-y ps-3 text-muted"></i>
+        <input
+          type="text"
+          class="form-control ps-5 search-input"
+          placeholder="Search by Patient ID or Symptoms..."
+          [(ngModel)]="searchTerm"
+          (input)="filterPatients()"
+        />
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="filteredAppointments.length > 0; else noAppointments">
     <div class="row g-4">
-      <div class="col-12 col-lg-6" *ngFor="let appointment of appointments">
+      <div class="col-12 col-lg-6" *ngFor="let appointment of filteredAppointments">
         <div class="card p-3 shadow-sm h-100">
           <div class="d-flex justify-content-between align-items-start">
             <div>
-              <h6 class="fw-bold mb-1">Patient ID: {{ appointment.patientId }}</h6>
+              <h6 class="fw-bold mb-1">Patient ID: {{ appointment. patientId }}</h6>
               <div class="text-muted small">
                 <i class="fa-regular fa-calendar-days me-1"></i>
                 {{ appointment.date }} |
@@ -22,8 +35,15 @@
                 {{ appointment.time }}
               </div>
             </div>
-            <span class="badge bg-primary-subtle text-primary-emphasis">
-              {{ appointment.status }}
+            <span 
+              class="badge" 
+              [ngClass]="{
+                'bg-warning': appointment.status === 'pending',
+                'bg-success': appointment.status === 'accepted',
+                'bg-danger': appointment.status === 'rejected'
+              }">
+              {{ appointment.status === 'pending' ? 'Pending' : 
+                 appointment.status === 'accepted' ? 'Accepted' : 'Rejected' }}
             </span>
           </div>
 
@@ -34,12 +54,29 @@
           </div>
 
           <div class="d-flex gap-2 mt-3">
-            <button class="btn1 btn btn-sm btn-primary">
+            <button class="btn1 btn btn-sm text-white" >
               <i class="bi bi-file-text me-1"></i> View Details
             </button>
-            <button class="btn btn-sm btn-outline-secondary">
-              Start Consultation
-            </button>
+            
+            <ng-container *ngIf="appointment.status === 'pending'">
+              <button 
+                class="btn btn-success btn-sm text-white" 
+                (click)="acceptAppointment(appointment)">
+                <i class="bi bi-check-circle me-1"></i> Accept
+              </button>
+              <button 
+                class="btn btn-danger btn-sm text-white" 
+                (click)="rejectAppointment(appointment)">
+                <i class="bi bi-x-circle me-1"></i> Reject
+              </button>
+            </ng-container>
+            
+            <span *ngIf="appointment.status === 'accepted'" class="text-success small align-self-center">
+              <i class="bi bi-check-circle-fill me-1"></i> Appointment Accepted
+            </span>
+            <span *ngIf="appointment. status === 'rejected'" class="text-danger small align-self-center">
+              <i class="bi bi-x-circle-fill me-1"></i> Appointment Rejected
+            </span>
           </div>
         </div>
       </div>
@@ -49,8 +86,8 @@
   <ng-template #noAppointments>
     <div class="card p-5 text-center text-muted">
       <i class="bi bi-calendar2-x fs-1 mb-3"></i>
-      <h5>No appointments today</h5>
-      <p>You have a clear schedule for today.</p>
+      <h5>No appointments found</h5>
+      <p>{{ searchTerm ? 'Try adjusting your search criteria.' : 'You have a clear schedule for today.' }}</p>
     </div>
   </ng-template>
 

@@ -13,6 +13,20 @@ export class DocPatientComponent {
   selectedPatient: any = null;
   backupPatient: any = null;
   isEditing: boolean = false;
+  showAddPatient: boolean = false;
+
+  newPatient = {
+    name: '',
+    id: '',
+    date: '',
+    time: '',
+    description: '',
+    bloodType: '',
+    disease: '',
+    tests: '',
+    medication: '',
+    history: ''
+  };
 
   Patients = [
     {
@@ -57,13 +71,13 @@ export class DocPatientComponent {
 
   filterPatients() {
     const term = this.searchTerm.toLowerCase();
-    this.filteredPatients = this.Patients.filter(a =>
+    this. filteredPatients = this. Patients.filter(a =>
       a.name.toLowerCase().includes(term) || a.id.toLowerCase().includes(term)
     );
   }
 
-  openHistory(patient: any) {
-    this.selectedPatient = { ...patient };
+  History(patient: any) {
+    this.selectedPatient = { ... patient };
     this.backupPatient = { ...patient };
     this.isEditing = false;
   }
@@ -78,7 +92,7 @@ export class DocPatientComponent {
   }
 
   saveHistory() {
-    const index = this.Patients.findIndex(p => p.id === this.selectedPatient.id);
+    const index = this. Patients.findIndex(p => p.id === this.selectedPatient.id);
     if (index !== -1) {
       this.Patients[index] = { ...this.selectedPatient };
       this.filterPatients();
@@ -90,9 +104,55 @@ export class DocPatientComponent {
     this.selectedPatient = null;
   }
 
+  openAddPatient() {
+    this.showAddPatient = true;
+    this.resetNewPatient();
+  }
 
-  confirmDelete(patient: any) {
-    const confirmDelete = confirm(`Are you sure you want to delete ${patient.name}?`);
+  closeAddPatient() {
+    this.showAddPatient = false;
+    this.resetNewPatient();
+  }
+
+  resetNewPatient() {
+    this. newPatient = {
+      name: '',
+      id: '',
+      date: '',
+      time: '',
+      description: '',
+      bloodType: '',
+      disease: '',
+      tests: '',
+      medication: '',
+      history: ''
+    };
+  }
+
+  addPatient() {
+
+    if (!this.newPatient.name || !this. newPatient.id || !this.newPatient.date || !this.newPatient.time) {
+      alert('Please fill in all required fields (Name, ID, Date, and Time)');
+      return;
+    }
+
+    const exists = this.Patients.some(p => p.id === this. newPatient.id);
+    if (exists) {
+      alert('A patient with this ID already exists!');
+      return;
+    }
+
+    this.Patients.push({ ...this.newPatient });
+    this.filterPatients();
+    
+    
+    this.closeAddPatient();
+    
+    alert(`Patient ${this.newPatient.name} has been added successfully!`);
+  }
+
+  Delete(patient: any) {
+    const confirmDelete = confirm(`Are you sure you want to delete ${patient. name}?`);
     if (confirmDelete) {
       this.Patients = this.Patients.filter(p => p.id !== patient.id);
       this.filterPatients();

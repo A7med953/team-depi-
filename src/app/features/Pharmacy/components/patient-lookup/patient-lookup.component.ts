@@ -11,7 +11,7 @@ interface Prescription {
 
 interface Patient {
   name: string;
-  phone: string;
+  id: string;
   age: number;
   address: string;
   doctor: string;
@@ -35,7 +35,7 @@ export class PatientLookupComponent implements OnInit {
     this.patients = [
       {
         name: "Sarah Ahmed",
-        phone: "01023456789",
+        id: "1",
         age: 28,
         address: "Cairo, Egypt",
         doctor: "Dr. Omar Khaled",
@@ -47,7 +47,7 @@ export class PatientLookupComponent implements OnInit {
       },
       {
         name: "Mohamed Ali",
-        phone: "01198765432",
+        id: "2",
         age: 35,
         address: "Giza, Egypt",
         doctor: "Dr. Laila Hussein",
@@ -58,7 +58,7 @@ export class PatientLookupComponent implements OnInit {
       },
       {
         name: "Amira Hassan",
-        phone: "01234567890",
+        id: "3",
         age: 24,
         address: "Alexandria, Egypt",
         doctor: "Dr. Hany Adel",
@@ -75,7 +75,7 @@ export class PatientLookupComponent implements OnInit {
   filterPatients(query: string): void {
     const q = query.toLowerCase();
     this.filteredPatients = this.patients.filter(
-      p => p.name.toLowerCase().includes(q) || p.phone.includes(q)
+      p => p.name.toLowerCase().includes(q) || p.id.includes(q)
     );
   }
 

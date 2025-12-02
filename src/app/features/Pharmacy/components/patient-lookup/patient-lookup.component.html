@@ -5,7 +5,7 @@
 <div class="container-card">
 
   <div class="search-bar">
-    <input type="text" placeholder="Search by patient name or phone..." #searchInput />
+    <input type="text" placeholder="Search by patient name or id..." #searchInput />
     <button (click)="filterPatients(searchInput.value)">Search</button>
   </div>
 
@@ -14,7 +14,7 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Phone</th>
+          <th>id</th>
           <th>Age</th>
           <th>Last Visit</th>
           <th>Doctor</th>
@@ -24,7 +24,7 @@
       <tbody>
         <tr *ngFor="let p of filteredPatients">
           <td data-label="Name">{{ p.name }}</td>
-          <td data-label="Phone">{{ p.phone }}</td>
+          <td data-label="id">{{ p.id }}</td>
           <td data-label="Age">{{ p.age }}</td>
           <td data-label="Last Visit">{{ p.lastVisit }}</td>
           <td data-label="Doctor">{{ p.doctor }}</td>
@@ -40,7 +40,7 @@
         <div class="patient-avatar">{{ selectedPatient.name.charAt(0).toUpperCase() }}</div>
         <div class="patient-info">
           <h3>{{ selectedPatient.name }}</h3>
-          <p>📞 {{ selectedPatient.phone }}</p>
+          <p>📞 {{ selectedPatient.id }}</p>
           <p>🎂 {{ selectedPatient.age }} years old</p>
           <p>🏠 {{ selectedPatient.address }}</p>
           <p>👨‍⚕️ Doctor: {{ selectedPatient.doctor }}</p>
