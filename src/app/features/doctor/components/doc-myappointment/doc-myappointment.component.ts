@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 interface Appointment {
   patientId: string;
   date: string;
   time: string;
-  status: string;
   symptoms: string;
   diagnosis: string;
+  status?: 'pending' | 'accepted' | 'rejected';
 }
 
 @Component({
   selector: 'app-doc-myappointment',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './doc-myappointment.component.html',
   styleUrls: ['./doc-myappointment.component.css']
 })
@@ -23,36 +24,38 @@ export class DocMyappointmentComponent {
       patientId: 'P-101',
       date: 'Thu, Nov 6, 2025',
       time: '10:00 AM - 10:30 AM',
-      status: 'Scheduled',
       symptoms: 'Headache, Fever',
-      diagnosis: ''
+      diagnosis: '',
+      status: 'pending'
     },
     {
       patientId: 'P-102',
       date: 'Thu, Nov 6, 2025',
       time: '11:00 AM - 11:30 AM',
-      status: 'In Progress',
       symptoms: 'Cough, Fatigue',
-      diagnosis: 'Suspected flu'
+      diagnosis: 'Suspected flu',
+      status: 'pending'
     },
     {
       patientId: 'P-103',
       date: 'Thu, Nov 10, 2025',
       time: '12:00 PM - 12:45 PM',
-      status: 'Completed',
       symptoms: 'Back pain',
-      diagnosis: 'Muscle strain'
+      diagnosis: 'Muscle strain',
+      status: 'pending'
     },
     {
       patientId: 'P-104',
       date: 'Thu, Nov 12, 2025',
       time: '2:00 PM - 2:30 PM',
-      status: 'Scheduled',
       symptoms: 'Sore throat',
-      diagnosis: ''
+      diagnosis: '',
+      status: 'pending'
     }
   ];
 
+  filteredAppointments: Appointment[] = [... this.appointments];
+  searchTerm: string = '';
   showCalendar = false;
   currentMonth = new Date().getMonth();
   currentYear = new Date().getFullYear();
@@ -60,11 +63,20 @@ export class DocMyappointmentComponent {
   weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   get monthName(): string {
-    return new Date(this.currentYear, this.currentMonth).toLocaleString('default', { month: 'long' });
+    return new Date(this.currentYear, this.currentMonth). toLocaleString('default', { month: 'long' });
+  }
+
+  filterPatients() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredAppointments = this.appointments.filter(a =>
+      a.patientId. toLowerCase().includes(term) || 
+      a.symptoms.toLowerCase(). includes(term)
+    );
   }
 
   ngOnInit() {
-    this.generateCalendar();
+    this. generateCalendar();
+    this.filteredAppointments = [...this. appointments];
   }
 
   generateCalendar() {
@@ -82,7 +94,7 @@ export class DocMyappointmentComponent {
 
   prevMonth() {
     this.currentMonth--;
-    if (this.currentMonth < 0) {
+    if (this. currentMonth < 0) {
       this.currentMonth = 11;
       this.currentYear--;
     }
@@ -99,7 +111,19 @@ export class DocMyappointmentComponent {
   }
 
   isAppointmentDay(day: number): boolean {
-    const dateString = `${this.monthName.slice(0, 3)}, ${this.monthName.slice(0, 3)} ${day}, ${this.currentYear}`;
-    return this.appointments.some(app => app.date.includes(`${day}, ${this.currentYear}`));
+    const dateString = `${this.monthName. slice(0, 3)}, ${this.monthName.slice(0, 3)} ${day}, ${this.currentYear}`;
+    return this.appointments.some(app => app.date. includes(`${day}, ${this.currentYear}`));
+  }
+
+  acceptAppointment(appointment: Appointment) {
+    appointment.status = 'accepted';
+    console.log(`Appointment ${appointment.patientId} accepted`);
+    // Here you can add API call to update the backend
+  }
+
+  rejectAppointment(appointment: Appointment) {
+    appointment.status = 'rejected';
+    console.log(`Appointment ${appointment.patientId} rejected`);
+    // Here you can add API call to update the backend
   }
 }

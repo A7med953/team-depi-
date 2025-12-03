@@ -1,7 +1,7 @@
 <div class="container py-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h4 fw-bold text-dark">Today's Patients</h1>
-    <button class="calebtn btn btn-primary">
+    <button class="calebtn btn text-white" (click)="openAddPatient()">
       <i class="fa-solid fa-user"></i>
       Add New Patient
     </button>
@@ -26,20 +26,20 @@
     <div class="card shadow-sm border-0 mb-3" *ngFor="let a of filteredPatients">
       <div class="card-body d-flex justify-content-between align-items-start flex-wrap">
         <div>
-          <h5 class="card-title mb-1 fw-bold text-primary">
-            <i class="fa-solid fa-user me-2"></i> {{ a.name }}
+          <h5 class="card-title mb-1 fw-bold text-dark">
+            <i class="fa-solid fa-user me-2 rounded-circle border p-2"></i> {{ a.name }}
           </h5>
-          <p class="text-muted mb-2"><strong>ID:</strong> {{ a.id }}</p>
+          <p class="text-muted mb-2"><strong>ID:</strong> {{ a. id }}</p>
           <p class="mb-2"><strong>Date:</strong> {{ a.date }}</p>
           <p class="mb-2"><strong>Time:</strong> {{ a.time }}</p>
           <p class="card-text text-muted">{{ a.description }}</p>
         </div>
 
         <div class="text-end mt-3 mt-md-0">
-          <button class="btn btn-outline-info btn-sm me-2" (click)="openHistory(a)">
+          <button class="his btn btn-sm me-2" (click)="History(a)">
             <i class="fa-solid fa-notes-medical"></i> View History
           </button>
-          <button class="btn btn-danger btn-sm" (click)="confirmDelete(a)">
+          <button class="btn btn-danger btn-sm" (click)="Delete(a)">
             <i class="fa-solid fa-trash"></i> Delete
           </button>
         </div>
@@ -70,11 +70,11 @@
         </div>
 
         <div class="modal-body">
-          <div *ngIf="!isEditing; else editMode">
+          <div *ngIf="! isEditing; else editMode">
             <p><strong>ID:</strong> {{ selectedPatient.id }}</p>
             <p><strong>Blood Type:</strong> {{ selectedPatient.bloodType }}</p>
             <p><strong>Disease:</strong> {{ selectedPatient.disease }}</p>
-            <p><strong>Tests:</strong> {{ selectedPatient.tests }}</p>
+            <p><strong>Tests:</strong> {{ selectedPatient. tests }}</p>
             <p><strong>Medication:</strong> {{ selectedPatient.medication }}</p>
             <p><strong>History:</strong></p>
             <pre class="bg-light p-2 rounded">{{ selectedPatient.history }}</pre>
@@ -126,7 +126,7 @@
 
         <div class="modal-footer">
           <button
-            *ngIf="!isEditing"
+            *ngIf="! isEditing"
             class="btn btn-warning"
             (click)="enableEdit()"
           >
@@ -154,6 +154,138 @@
             (click)="closeHistory()"
           >
             Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade show"
+    tabindex="-1"
+    *ngIf="showAddPatient"
+    style="display: block; background: rgba(0, 0, 0, 0.5)"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fa-solid fa-user-plus me-2"></i>Add New Patient
+          </h5>
+          <button type="button" class="btn-close" (click)="closeAddPatient()"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Patient Name: <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="newPatient.name"
+                placeholder="Enter patient name"
+              />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Patient ID: <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="newPatient.id"
+                placeholder="e.g., P-104"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Date: <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="newPatient.date"
+                placeholder="e.g., Thu, Nov 6, 2025"
+              />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Time: <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="newPatient.time"
+                placeholder="e.g., 3:00 PM"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Description:</label>
+            <textarea
+              rows="2"
+              class="form-control"
+              [(ngModel)]="newPatient.description"
+              placeholder="Enter patient complaint or reason for visit"
+            ></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Blood Type:</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="newPatient.bloodType"
+                placeholder="e. g., A+, B-, O+"
+              />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label fw-bold">Disease/Diagnosis:</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="newPatient. disease"
+                placeholder="Enter diagnosis"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Tests:</label>
+            <textarea
+              rows="2"
+              class="form-control"
+              [(ngModel)]="newPatient.tests"
+              placeholder="Enter required tests"
+            ></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Medication:</label>
+            <textarea
+              rows="2"
+              class="form-control"
+              [(ngModel)]="newPatient.medication"
+              placeholder="Enter prescribed medication"
+            ></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Medical History:</label>
+            <textarea
+              rows="4"
+              class="form-control"
+              [(ngModel)]="newPatient.history"
+              placeholder="Enter patient's medical history"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="addPatient()">
+            <i class="fa-solid fa-check"></i> Add Patient
+          </button>
+          <button class="btn btn-secondary" (click)="closeAddPatient()">
+            Cancel
           </button>
         </div>
       </div>
