@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-doc-patient',
   imports: [CommonModule, FormsModule],
   templateUrl: './doc-patient.component.html',
-  styleUrl: './doc-patient.component.css'
+   styleUrl: './doc-patient.component.css'
 })
 export class DocPatientComponent {
   searchTerm: string = '';
@@ -14,6 +14,15 @@ export class DocPatientComponent {
   backupPatient: any = null;
   isEditing: boolean = false;
   showAddPatient: boolean = false;
+
+ 
+  showAlert: boolean = false;
+  alertMessage: string = '';
+  alertType: 'success' | 'error' | 'info' = 'info';
+
+  showConfirm: boolean = false;
+  confirmMessage: string = '';
+  confirmCallback: (() => void) | null = null;
 
   newPatient = {
     name: '',
@@ -67,17 +76,48 @@ export class DocPatientComponent {
     }
   ];
 
-  filteredPatients = [...this.Patients];
+  filteredPatients = [... this.Patients];
+
+  displayAlert(message: string, type: 'success' | 'error' | 'info' = 'info') {
+    this. alertMessage = message;
+    this. alertType = type;
+    this.showAlert = true;
+    setTimeout(() => {
+      this.closeAlert();
+    }, 4000);
+  }
+
+  closeAlert() {
+    this.showAlert = false;
+  }
+
+  displayConfirm(message: string, callback: () => void) {
+    this. confirmMessage = message;
+    this.confirmCallback = callback;
+    this.showConfirm = true;
+  }
+
+  confirmAction() {
+    if (this.confirmCallback) {
+      this.confirmCallback();
+    }
+    this.closeConfirm();
+  }
+
+  closeConfirm() {
+    this.showConfirm = false;
+    this.confirmCallback = null;
+  }
 
   filterPatients() {
     const term = this.searchTerm.toLowerCase();
-    this. filteredPatients = this. Patients.filter(a =>
-      a.name.toLowerCase().includes(term) || a.id.toLowerCase().includes(term)
+    this.filteredPatients = this. Patients.filter(a =>
+      a.name.toLowerCase(). includes(term) || a.id.toLowerCase().includes(term)
     );
   }
 
   History(patient: any) {
-    this.selectedPatient = { ... patient };
+    this.selectedPatient = { ...patient };
     this.backupPatient = { ...patient };
     this.isEditing = false;
   }
@@ -88,14 +128,15 @@ export class DocPatientComponent {
 
   cancelEdit() {
     this.selectedPatient = { ...this.backupPatient };
-    this.isEditing = false;
+    this. isEditing = false;
   }
 
   saveHistory() {
-    const index = this. Patients.findIndex(p => p.id === this.selectedPatient.id);
+    const index = this.Patients.findIndex(p => p.id === this.selectedPatient.id);
     if (index !== -1) {
       this.Patients[index] = { ...this.selectedPatient };
       this.filterPatients();
+      this.displayAlert('Medical details updated successfully!', 'success');
     }
     this.isEditing = false;
   }
@@ -130,32 +171,33 @@ export class DocPatientComponent {
   }
 
   addPatient() {
-
-    if (!this.newPatient.name || !this. newPatient.id || !this.newPatient.date || !this.newPatient.time) {
-      alert('Please fill in all required fields (Name, ID, Date, and Time)');
+    if (! this.newPatient.name || !this.newPatient.id || !this.newPatient.date || !this.newPatient.time) {
+      this.displayAlert('Please fill in all required fields (Name, ID, Date, and Time)', 'error');
       return;
     }
 
-    const exists = this.Patients.some(p => p.id === this. newPatient.id);
+    const exists = this.Patients.some(p => p.id === this.newPatient.id);
     if (exists) {
-      alert('A patient with this ID already exists!');
+      this.displayAlert('A patient with this ID already exists! ', 'error');
       return;
     }
 
-    this.Patients.push({ ...this.newPatient });
+    this. Patients.push({ ...this.newPatient });
     this.filterPatients();
-    
     
     this.closeAddPatient();
     
-    alert(`Patient ${this.newPatient.name} has been added successfully!`);
+    this.displayAlert(`Patient ${this.newPatient.name} has been added successfully!`, 'success');
   }
 
   Delete(patient: any) {
-    const confirmDelete = confirm(`Are you sure you want to delete ${patient. name}?`);
-    if (confirmDelete) {
-      this.Patients = this.Patients.filter(p => p.id !== patient.id);
-      this.filterPatients();
-    }
+    this.displayConfirm(
+      `Are you sure you want to delete ${patient.name}? `,
+      () => {
+        this.Patients = this. Patients.filter(p => p. id !== patient.id);
+        this.filterPatients();
+        this.displayAlert(`Patient ${patient.name} has been deleted. `, 'info');
+      }
+    );
   }
 }

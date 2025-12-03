@@ -27,7 +27,7 @@
         <div class="card p-3 shadow-sm h-100">
           <div class="d-flex justify-content-between align-items-start">
             <div>
-              <h6 class="fw-bold mb-1">Patient ID: {{ appointment. patientId }}</h6>
+              <h6 class="fw-bold mb-1">Patient ID: {{ appointment.patientId }}</h6>
               <div class="text-muted small">
                 <i class="fa-regular fa-calendar-days me-1"></i>
                 {{ appointment.date }} |
@@ -50,11 +50,10 @@
           <hr />
           <div>
             <p class="mb-1"><strong>Symptoms:</strong> {{ appointment.symptoms }}</p>
-            <p class="mb-0"><strong>Diagnosis:</strong> {{ appointment.diagnosis || '—' }}</p>
           </div>
 
           <div class="d-flex gap-2 mt-3">
-            <button class="btn1 btn btn-sm text-white" >
+            <button class="btn1 btn btn-sm text-white" (click)="openDetailsModal(appointment)">
               <i class="bi bi-file-text me-1"></i> View Details
             </button>
             
@@ -91,6 +90,7 @@
     </div>
   </ng-template>
 
+
   <div
     class="modal fade show"
     tabindex="-1"
@@ -122,7 +122,7 @@
               <div
                 *ngFor="let day of daysInMonth"
                 class="calendar-day"
-                [class.has-appointment]="isAppointmentDay(day)"
+                [class. has-appointment]="isAppointmentDay(day)"
               >
                 {{ day }}
               </div>
@@ -132,6 +132,121 @@
 
         <div class="modal-footer">
           <button class="btn btn-secondary" (click)="closeCalendar()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div
+    class="modal fade show"
+    tabindex="-1"
+    *ngIf="showDetailsModal && selectedAppointment"
+    style="display: block; background: rgba(0, 0, 0, 0.5);"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header  text-white">
+          <h5 class="modal-title">
+            <i class="bi bi-person-circle me-2"></i>
+            Patient Details - {{ selectedAppointment.patientId }}
+          </h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeDetailsModal()"></button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Patient Information Section -->
+          <div class="mb-4">
+            <h6 class="text-primary mb-3">
+              <i class="bi bi-person-vcard me-2"></i>Patient Information
+            </h6>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person-fill text-muted me-2"></i>
+                  <div>
+                    <small class="text-muted d-block">Full Name</small>
+                    <strong>{{ selectedAppointment.patientName }}</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-credit-card text-muted me-2"></i>
+                  <div>
+                    <small class="text-muted d-block">Patient ID</small>
+                    <strong>{{ selectedAppointment. patientId }}</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-calendar3 text-muted me-2"></i>
+                  <div>
+                    <small class="text-muted d-block">Age</small>
+                    <strong>{{ selectedAppointment.patientAge }} years</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-gender-ambiguous text-muted me-2"></i>
+                  <div>
+                    <small class="text-muted d-block">Gender</small>
+                    <strong>{{ selectedAppointment.patientGender }}</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-telephone-fill text-muted me-2"></i>
+                  <div>
+                    <small class="text-muted d-block">Phone</small>
+                    <strong>{{ selectedAppointment.patientPhone }}</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-clock-fill text-muted me-2"></i>
+                  <div>
+                    <small class="text-muted d-block">Appointment Time</small>
+                    <strong>{{ selectedAppointment.time }}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="mb-4">
+            <h6 class="text-primary mb-3">
+              <i class="bi bi-clipboard2-pulse me-2"></i>Medical Information
+            </h6>
+            <div class="mb-3">
+              <label class="fw-bold text-muted mb-1">Symptoms:</label>
+              <p class="border rounded p-2 bg-light">{{ selectedAppointment.symptoms }}</p>
+            </div>
+
+          </div>
+
+          <hr />
+
+          <div>
+            <h6 class="text-primary mb-3">
+              <i class="bi bi-journal-medical me-2"></i>Disease Description
+            </h6>
+            <div class="alert alert-info">
+              <p class="mb-0">{{ selectedAppointment.diseaseDescription || 'No description available yet.' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeDetailsModal()">
+            <i class="bi bi-x-circle me-1"></i>Close
+          </button>
         </div>
       </div>
     </div>

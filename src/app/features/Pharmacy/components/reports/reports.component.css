@@ -1119,7 +1119,6 @@
   color: var(--color-text-main);
 }
 
-/* Responsive Modal */
 @media (max-width: 768px) {
   .modal-content {
     max-width: 95%;

@@ -55,3 +55,7 @@
   color: white;
   font-weight: bold;
 }
+
+.modal-header{
+  background-color: var(--color-primary);
+}

@@ -21,6 +21,56 @@
       </div>
     </div>
   </div>
+  <!-- Add this at the end of your template, before closing </div> -->
+
+<!-- Alert Overlay -->
+<div class="alert-overlay" *ngIf="showAlert">
+  <div class="alert-box" [ngClass]="alertType">
+    <div class="alert-icon">
+      <i class="fa-solid" 
+         [ngClass]="{
+           'fa-check-circle': alertType === 'success',
+           'fa-exclamation-circle': alertType === 'error',
+           'fa-info-circle': alertType === 'info'
+         }"></i>
+    </div>
+    <div class="alert-content">
+      <p>{{ alertMessage }}</p>
+    </div>
+    <button class="alert-close" (click)="closeAlert()">
+      <i class="fa-solid fa-times"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="modal fade show" 
+     tabindex="-1" 
+     *ngIf="showConfirm"
+     style="display: block; background: rgba(0, 0, 0, 0.5)">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="fa-solid fa-exclamation-triangle me-2 text-warning"></i>
+          Confirm Action
+        </h5>
+        <button type="button" class="btn-close" (click)="closeConfirm()"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">{{ confirmMessage }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="confirmAction()">
+          <i class="fa-solid fa-check"></i> Yes, Delete
+        </button>
+        <button class="btn btn-secondary" (click)="closeConfirm()">
+          <i class="fa-solid fa-times"></i> Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <div *ngIf="filteredPatients.length > 0">
     <div class="card shadow-sm border-0 mb-3" *ngFor="let a of filteredPatients">
