@@ -118,12 +118,10 @@ export class DocMyappointmentComponent {
   acceptAppointment(appointment: Appointment) {
     appointment.status = 'accepted';
     console.log(`Appointment ${appointment.patientId} accepted`);
-    // Here you can add API call to update the backend
   }
 
   rejectAppointment(appointment: Appointment) {
     appointment.status = 'rejected';
     console.log(`Appointment ${appointment.patientId} rejected`);
-    // Here you can add API call to update the backend
   }
 }

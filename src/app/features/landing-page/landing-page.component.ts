@@ -40,7 +40,7 @@ export class LandingPageComponent implements AfterViewInit {
     const demoVideoPlayer = document.getElementById('demoVideo') as HTMLIFrameElement;
 
 
-    const videoURL = '';
+    const videoURL = 'https://www.youtube.com/embed/1Bpj38bxJ60';
 
     watchDemoBtn?.addEventListener('click', (e) => {
       e.preventDefault();
