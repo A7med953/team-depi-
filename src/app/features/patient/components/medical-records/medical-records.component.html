@@ -9,9 +9,9 @@
         <div class="section-header">
             <i class="fa fa-medkit"></i>
             <h3>Current Medications</h3>
-            <button class="btn-add" (click)="toggleMedicationForm()">
+            <!-- <button class="btn-add" (click)="toggleMedicationForm()">
                 <i class="fa fa-plus"></i> {{ showMedicationForm ? 'Cancel' : 'Add Medication' }}
-            </button>
+            </button> -->
         </div>
 
         <!-- Medication Form -->
@@ -54,10 +54,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-actions">
+                <!-- <div class="form-actions">
                     <button type="submit" class="btn-save">{{ editingMedicationId ? 'Update' : 'Save' }}</button>
                     <button type="button" class="btn-cancel" (click)="toggleMedicationForm()">Cancel</button>
-                </div>
+                </div> -->
             </form>
         </div>
 
@@ -73,14 +73,14 @@
                     <p><strong>Doctor:</strong> {{ medication.doctor }}</p>
                     <p><strong>Purpose:</strong> {{ medication.purpose }}</p>
                 </div>
-                <div class="card-actions">
+                <!-- <div class="card-actions">
                     <button class="btn-edit" (click)="editMedication(medication)">
                         <i class="fa fa-edit"></i> Edit
                     </button>
                     <button class="btn-delete" (click)="deleteMedication(medication.id)">
                         <i class="fa fa-trash"></i> Delete
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -90,9 +90,9 @@
         <div class="section-header">
             <i class="fa fa-heartbeat"></i>
             <h3>Medical Conditions</h3>
-            <button class="btn-add" (click)="toggleConditionForm()">
+            <!-- <button class="btn-add" (click)="toggleConditionForm()">
                 <i class="fa fa-plus"></i> {{ showConditionForm ? 'Cancel' : 'Add Condition' }}
-            </button>
+            </button> -->
         </div>
 
         <!-- Condition Form -->
@@ -128,10 +128,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-actions">
+                <!-- <div class="form-actions">
                     <button type="submit" class="btn-save">{{ editingConditionId ? 'Update' : 'Save' }}</button>
                     <button type="button" class="btn-cancel" (click)="toggleConditionForm()">Cancel</button>
-                </div>
+                </div> -->
             </form>
         </div>
 
@@ -146,14 +146,14 @@
                     <p><strong>Status:</strong> {{ condition.status }}</p>
                     <p><strong>Last checked:</strong> {{ condition.lastChecked }}</p>
                 </div>
-                <div class="card-actions">
+                <!-- <div class="card-actions">
                     <button class="btn-edit" (click)="editCondition(condition)">
                         <i class="fa fa-edit"></i> Edit
                     </button>
                     <button class="btn-delete" (click)="deleteCondition(condition.id)">
                         <i class="fa fa-trash"></i> Delete
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -163,9 +163,9 @@
         <div class="section-header">
             <i class="fa fa-exclamation-triangle"></i>
             <h3>Allergies</h3>
-            <button class="btn-add" (click)="toggleAllergyForm()">
+            <!-- <button class="btn-add" (click)="toggleAllergyForm()">
                 <i class="fa fa-plus"></i> {{ showAllergyForm ? 'Cancel' : 'Add Allergy' }}
-            </button>
+            </button> -->
         </div>
 
         <!-- Allergy Form -->
@@ -202,10 +202,10 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-actions">
+                <!-- <div class="form-actions">
                     <button type="submit" class="btn-save">{{ editingAllergyId ? 'Update' : 'Save' }}</button>
                     <button type="button" class="btn-cancel" (click)="toggleAllergyForm()">Cancel</button>
-                </div>
+                </div> -->
             </form>
         </div>
 
@@ -220,14 +220,14 @@
                     <p><strong>Reaction:</strong> {{ allergy.reaction }}</p>
                     <p><strong>Documented:</strong> {{ allergy.documentedYear }}</p>
                 </div>
-                <div class="card-actions">
+                <!-- <div class="card-actions">
                     <button class="btn-edit" (click)="editAllergy(allergy)">
                         <i class="fa fa-edit"></i> Edit
                     </button>
                     <button class="btn-delete" (click)="deleteAllergy(allergy.id)">
                         <i class="fa fa-trash"></i> Delete
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
