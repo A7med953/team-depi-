@@ -9,30 +9,77 @@
         <div class="section-header">
             <i class="fa fa-medkit"></i>
             <h3>Current Medications</h3>
+            <button class="btn-add" (click)="toggleMedicationForm()">
+                <i class="fa fa-plus"></i> {{ showMedicationForm ? 'Cancel' : 'Add Medication' }}
+            </button>
         </div>
+
+        <!-- Medication Form -->
+        <div class="form-container" *ngIf="showMedicationForm">
+            <h4>{{ editingMedicationId ? 'Edit Medication' : 'Add New Medication' }}</h4>
+            <form (ngSubmit)="saveMedication()">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="med-name">Medication Name *</label>
+                        <input type="text" id="med-name" [(ngModel)]="medicationForm.name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="med-dosage">Dosage *</label>
+                        <input type="text" id="med-dosage" [(ngModel)]="medicationForm.dosage" name="dosage" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="med-date">Prescribed Date *</label>
+                        <input type="date" id="med-date" [(ngModel)]="medicationForm.prescribedDate" name="prescribedDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="med-doctor">Doctor *</label>
+                        <select id="med-doctor" [(ngModel)]="medicationForm.doctor" name="doctor" required>
+                            <option value="" disabled>Select a doctor</option>
+                            <option *ngFor="let doctor of doctors" [value]="doctor">{{ doctor }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="med-purpose">Purpose *</label>
+                        <input type="text" id="med-purpose" [(ngModel)]="medicationForm.purpose" name="purpose" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="med-status">Status *</label>
+                        <select id="med-status" [(ngModel)]="medicationForm.status" name="status" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-save">{{ editingMedicationId ? 'Update' : 'Save' }}</button>
+                    <button type="button" class="btn-cancel" (click)="toggleMedicationForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+
         <div class="records-grid">
-            <div class="record-card">
+            <div class="record-card" *ngFor="let medication of medications">
                 <div class="card-header">
-                    <h4>Lisinopril</h4>
-                    <span class="badge active">Active</span>
+                    <h4>{{ medication.name }}</h4>
+                    <span class="badge" [ngClass]="medication.status">{{ medication.status | titlecase }}</span>
                 </div>
                 <div class="card-body">
-                    <p><strong>Dosage:</strong> 10mg daily</p>
-                    <p><strong>Prescribed:</strong> Jan 15, 2024</p>
-                    <p><strong>Doctor:</strong> Dr. Smith</p>
-                    <p><strong>Purpose:</strong> Blood pressure control</p>
+                    <p><strong>Dosage:</strong> {{ medication.dosage }}</p>
+                    <p><strong>Prescribed:</strong> {{ medication.prescribedDate }}</p>
+                    <p><strong>Doctor:</strong> {{ medication.doctor }}</p>
+                    <p><strong>Purpose:</strong> {{ medication.purpose }}</p>
                 </div>
-            </div>
-            <div class="record-card">
-                <div class="card-header">
-                    <h4>Metformin</h4>
-                    <span class="badge active">Active</span>
-                </div>
-                <div class="card-body">
-                    <p><strong>Dosage:</strong> 500mg twice daily</p>
-                    <p><strong>Prescribed:</strong> Mar 10, 2024</p>
-                    <p><strong>Doctor:</strong> Dr. Johnson</p>
-                    <p><strong>Purpose:</strong> Diabetes management</p>
+                <div class="card-actions">
+                    <button class="btn-edit" (click)="editMedication(medication)">
+                        <i class="fa fa-edit"></i> Edit
+                    </button>
+                    <button class="btn-delete" (click)="deleteMedication(medication.id)">
+                        <i class="fa fa-trash"></i> Delete
+                    </button>
                 </div>
             </div>
         </div>
@@ -43,28 +90,69 @@
         <div class="section-header">
             <i class="fa fa-heartbeat"></i>
             <h3>Medical Conditions</h3>
+            <button class="btn-add" (click)="toggleConditionForm()">
+                <i class="fa fa-plus"></i> {{ showConditionForm ? 'Cancel' : 'Add Condition' }}
+            </button>
         </div>
+
+        <!-- Condition Form -->
+        <div class="form-container" *ngIf="showConditionForm">
+            <h4>{{ editingConditionId ? 'Edit Condition' : 'Add New Condition' }}</h4>
+            <form (ngSubmit)="saveCondition()">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cond-name">Condition Name *</label>
+                        <input type="text" id="cond-name" [(ngModel)]="conditionForm.name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cond-year">Diagnosed Year *</label>
+                        <input type="text" id="cond-year" [(ngModel)]="conditionForm.diagnosedYear" name="diagnosedYear" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cond-status">Status *</label>
+                        <input type="text" id="cond-status" [(ngModel)]="conditionForm.status" name="status" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cond-checked">Last Checked *</label>
+                        <input type="date" id="cond-checked" [(ngModel)]="conditionForm.lastChecked" name="lastChecked" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cond-type">Type *</label>
+                        <select id="cond-type" [(ngModel)]="conditionForm.type" name="type" required>
+                            <option value="chronic">Chronic</option>
+                            <option value="acute">Acute</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-save">{{ editingConditionId ? 'Update' : 'Save' }}</button>
+                    <button type="button" class="btn-cancel" (click)="toggleConditionForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+
         <div class="records-grid">
-            <div class="record-card">
+            <div class="record-card" *ngFor="let condition of conditions">
                 <div class="card-header">
-                    <h4>Hypertension</h4>
-                    <span class="badge chronic">Chronic</span>
+                    <h4>{{ condition.name }}</h4>
+                    <span class="badge" [ngClass]="condition.type">{{ condition.type | titlecase }}</span>
                 </div>
                 <div class="card-body">
-                    <p><strong>Diagnosed:</strong> 2020</p>
-                    <p><strong>Status:</strong> Under control</p>
-                    <p><strong>Last checked:</strong> Sep 10, 2024</p>
+                    <p><strong>Diagnosed:</strong> {{ condition.diagnosedYear }}</p>
+                    <p><strong>Status:</strong> {{ condition.status }}</p>
+                    <p><strong>Last checked:</strong> {{ condition.lastChecked }}</p>
                 </div>
-            </div>
-            <div class="record-card">
-                <div class="card-header">
-                    <h4>Type 2 Diabetes</h4>
-                    <span class="badge chronic">Chronic</span>
-                </div>
-                <div class="card-body">
-                    <p><strong>Diagnosed:</strong> 2022</p>
-                    <p><strong>Status:</strong> Managed with medication</p>
-                    <p><strong>Last checked:</strong> Aug 20, 2024</p>
+                <div class="card-actions">
+                    <button class="btn-edit" (click)="editCondition(condition)">
+                        <i class="fa fa-edit"></i> Edit
+                    </button>
+                    <button class="btn-delete" (click)="deleteCondition(condition.id)">
+                        <i class="fa fa-trash"></i> Delete
+                    </button>
                 </div>
             </div>
         </div>
@@ -75,28 +163,70 @@
         <div class="section-header">
             <i class="fa fa-exclamation-triangle"></i>
             <h3>Allergies</h3>
+            <button class="btn-add" (click)="toggleAllergyForm()">
+                <i class="fa fa-plus"></i> {{ showAllergyForm ? 'Cancel' : 'Add Allergy' }}
+            </button>
         </div>
+
+        <!-- Allergy Form -->
+        <div class="form-container" *ngIf="showAllergyForm">
+            <h4>{{ editingAllergyId ? 'Edit Allergy' : 'Add New Allergy' }}</h4>
+            <form (ngSubmit)="saveAllergy()">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="allergy-name">Allergy Name *</label>
+                        <input type="text" id="allergy-name" [(ngModel)]="allergyForm.name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="allergy-type">Allergy Type *</label>
+                        <input type="text" id="allergy-type" [(ngModel)]="allergyForm.allergyType" name="allergyType" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="allergy-reaction">Reaction *</label>
+                        <input type="text" id="allergy-reaction" [(ngModel)]="allergyForm.reaction" name="reaction" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="allergy-year">Documented Year *</label>
+                        <input type="text" id="allergy-year" [(ngModel)]="allergyForm.documentedYear" name="documentedYear" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="allergy-severity">Severity *</label>
+                        <select id="allergy-severity" [(ngModel)]="allergyForm.severity" name="severity" required>
+                            <option value="mild">Mild</option>
+                            <option value="moderate">Moderate</option>
+                            <option value="severe">Severe</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-save">{{ editingAllergyId ? 'Update' : 'Save' }}</button>
+                    <button type="button" class="btn-cancel" (click)="toggleAllergyForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+
         <div class="records-grid">
-            <div class="record-card">
+            <div class="record-card" *ngFor="let allergy of allergies">
                 <div class="card-header">
-                    <h4>Penicillin</h4>
-                    <span class="badge severe">Severe</span>
+                    <h4>{{ allergy.name }}</h4>
+                    <span class="badge" [ngClass]="allergy.severity">{{ allergy.severity | titlecase }}</span>
                 </div>
                 <div class="card-body">
-                    <p><strong>Type:</strong> Drug allergy</p>
-                    <p><strong>Reaction:</strong> Anaphylaxis</p>
-                    <p><strong>Documented:</strong> 2015</p>
+                    <p><strong>Type:</strong> {{ allergy.allergyType }}</p>
+                    <p><strong>Reaction:</strong> {{ allergy.reaction }}</p>
+                    <p><strong>Documented:</strong> {{ allergy.documentedYear }}</p>
                 </div>
-            </div>
-            <div class="record-card">
-                <div class="card-header">
-                    <h4>Peanuts</h4>
-                    <span class="badge moderate">Moderate</span>
-                </div>
-                <div class="card-body">
-                    <p><strong>Type:</strong> Food allergy</p>
-                    <p><strong>Reaction:</strong> Hives, swelling</p>
-                    <p><strong>Documented:</strong> 2010</p>
+                <div class="card-actions">
+                    <button class="btn-edit" (click)="editAllergy(allergy)">
+                        <i class="fa fa-edit"></i> Edit
+                    </button>
+                    <button class="btn-delete" (click)="deleteAllergy(allergy.id)">
+                        <i class="fa fa-trash"></i> Delete
+                    </button>
                 </div>
             </div>
         </div>

@@ -142,13 +142,6 @@ h5 {
     font-size: 0.9rem;
 }
 
-.experience::before {
-    content: "📅 ";
-}
-
-.consulation::before {
-    content: "💰 ";
-}
 
 .guidelines ul {
     list-style: none;
