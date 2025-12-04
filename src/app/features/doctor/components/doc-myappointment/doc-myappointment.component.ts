@@ -71,7 +71,6 @@ export class DocMyappointmentComponent {
       date: 'Thu, Nov 12, 2025',
       time: '2:00 PM - 2:30 PM',
       symptoms: 'Sore throat',
-
       diseaseDescription: 'Pharyngitis is inflammation of the pharynx, resulting in a sore throat. Treatment depends on the cause but often includes pain relievers and throat lozenges.',
       status: 'pending'
     }
@@ -82,14 +81,9 @@ export class DocMyappointmentComponent {
   showCalendar = false;
   showDetailsModal = false;
   selectedAppointment: Appointment | null = null;
-  currentMonth = new Date().getMonth();
-  currentYear = new Date().getFullYear();
-  daysInMonth: number[] = [];
-  weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  get monthName(): string {
-    return new Date(this.currentYear, this.currentMonth). toLocaleString('default', { month: 'long' });
-  }
+
+
 
   filterPatients() {
     const term = this. searchTerm.toLowerCase();
@@ -100,22 +94,10 @@ export class DocMyappointmentComponent {
   }
 
   ngOnInit() {
-    this.generateCalendar();
     this.filteredAppointments = [...this.appointments];
   }
 
-  generateCalendar() {
-    const daysCount = new Date(this. currentYear, this.currentMonth + 1, 0).getDate();
-    this.daysInMonth = Array.from({ length: daysCount }, (_, i) => i + 1);
-  }
 
-  openCalendar() {
-    this.showCalendar = true;
-  }
-
-  closeCalendar() {
-    this.showCalendar = false;
-  }
 
   openDetailsModal(appointment: Appointment) {
     this.selectedAppointment = appointment;
@@ -127,28 +109,10 @@ export class DocMyappointmentComponent {
     this.selectedAppointment = null;
   }
 
-  prevMonth() {
-    this.currentMonth--;
-    if (this. currentMonth < 0) {
-      this.currentMonth = 11;
-      this.currentYear--;
-    }
-    this.generateCalendar();
-  }
 
-  nextMonth() {
-    this.currentMonth++;
-    if (this.currentMonth > 11) {
-      this.currentMonth = 0;
-      this.currentYear++;
-    }
-    this.generateCalendar();
-  }
 
-  isAppointmentDay(day: number): boolean {
-    const dateString = `${this.monthName.slice(0, 3)}, ${this.monthName.slice(0, 3)} ${day}, ${this.currentYear}`;
-    return this. appointments.some(app => app. date.includes(`${day}, ${this.currentYear}`));
-  }
+
+
 
   acceptAppointment(appointment: Appointment) {
     appointment.status = 'accepted';
