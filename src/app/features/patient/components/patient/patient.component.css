@@ -20,6 +20,9 @@ aside {
 
 .profile {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 aside h2 {
@@ -121,9 +124,17 @@ main {
 
 /* Responsive Styles */
 @media (max-width: 1024px) {
+    section {
+        flex-direction: column;
+    }
     aside {
         width: 25%;
         display: none;
+    }
+
+    .profile {
+        flex-direction: row;
+        gap: 10px;
     }
 
     nav {
@@ -136,7 +147,18 @@ main {
     }
 
     nav .profile {
-        margin: 5px;
+        /* margin: 5px; */
+    }
+
+    nav .profile h2 {
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+    nav .profile p {
+        margin: 0;
+        font-size: 0.8rem;
+        align-self: flex-end;
     }
 
     nav .btn {
