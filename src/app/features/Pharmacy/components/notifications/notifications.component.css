@@ -69,6 +69,7 @@
 }
 
 .notification-icon {
+  color: var(--color-primary);
   flex-shrink: 0;
   width: 40px;
   height: 40px;
@@ -79,9 +80,6 @@
   margin-top: 0;
 }
 
-.notification-card .notification-icon i.fa-bell {
-  color: var(--color-text-main);
-}
 
 .notification-card .notification-icon i.fa-pills {
   color: var(--color-primary);

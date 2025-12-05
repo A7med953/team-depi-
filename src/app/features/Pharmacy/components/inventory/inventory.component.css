@@ -51,7 +51,7 @@
 }
 
 .add-item-btn {
-    background-color: #0086a1;
+    background-color: var(--color-primary);
     color: #fff;
     border: none;
     padding: 12px 20px;
@@ -63,7 +63,7 @@
 }
 
 .add-item-btn:hover {
-    background-color: #006e83;
+    background-color: var(--color-primary-dark);
 }
 
 .add-item-btn i {
@@ -360,12 +360,12 @@
 }
 
 .update-btn {
-    background-color: #0086a1;
+    background-color: var(--color-primary);
     color: #fff;
 }
 
 .update-btn:hover {
-    background-color: #006e83;
+    background-color: var(--color-primary-dark);
 }
 
 .view-btn {

@@ -44,7 +44,7 @@ export class NotificationComponent {
       message: 'Metformin 500mg is running low (25 units remaining)',
       time: '1h ago',
       read: false,
-      icon: 'fas fa-bell',
+      icon: 'fa-solid fa-bell',
       details: ['Metformin 500mg', '25 units left'],
     },
     {
