@@ -39,7 +39,26 @@
 
         <div class="error" *ngIf="error">{{ error }}</div>
 
-        <input type="submit" value="Login" class="btn solid" [disabled]="form.invalid" />
+<!-- Buttons -->
+<div class="d-flex gap-3 mt-3 w-100">
+
+  <input
+    type="submit"
+    value="Login"
+    class="btn solid flex-fill"
+    [disabled]="form.invalid"
+  />
+
+  <button
+    type="button"
+    class="btn solid flex-fill"
+    data-bs-toggle="modal"
+    data-bs-target="#accountsModal"
+  >
+    Account
+  </button>
+
+</div>
 
         <p class="social-text">Or Sign in with social platforms</p>
         <div class="social-media">
@@ -63,6 +82,83 @@
 
     </div>
   </div>
+  <!-- Bootstrap Modal -->
+<div
+  class="modal fade"
+  id="accountsModal"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4">
+
+      <!-- Header -->
+      <div class="modal-header border-0">
+        <h4 class="modal-title w-100 text-center">
+          Accounts
+        </h4>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <div class="list-group">
+
+          <div class="list-group-item">
+            <h5>Doctor Account</h5>
+
+            <p>
+              <strong>Email:</strong>
+              doctor&#64;example.com
+            </p>
+
+            <p>
+              <strong>Password:</strong>
+              doc123
+            </p>
+          </div>
+
+          <div class="list-group-item">
+            <h5>Pharmacy Account</h5>
+
+            <p>
+              <strong>Email:</strong>
+              pharmacy&#64;example.com
+            </p>
+
+            <p>
+              <strong>Password:</strong>
+              pharm123
+            </p>
+          </div>
+
+          <div class="list-group-item">
+            <h5>Patient Account</h5>
+
+            <p>
+              <strong>Email:</strong>
+              patient&#64;example.com
+            </p>
+
+            <p>
+              <strong>Password:</strong>
+              patient123
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 </div>
 
 <!-- <app-footer></app-footer> -->

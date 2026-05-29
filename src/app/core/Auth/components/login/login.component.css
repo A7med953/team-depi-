@@ -194,6 +194,8 @@ select {
 .left-panel {
   pointer-events: all;
   padding: 3rem 17% 2rem 12%;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -202,6 +204,10 @@ select {
   color: #fff;
   transition: transform 0.9s ease-in-out;
   transition-delay: 0.6s;
+}
+
+.left-panel .content {
+  text-align: center;
 }
 
 .panel h3 {
@@ -342,4 +348,13 @@ select {
   }
 
  
+}
+.modal-dialog {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.modal-content {
+  border-radius: 20px;
 }
